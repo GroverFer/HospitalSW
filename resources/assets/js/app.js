@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16,10 +15,11 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('rol', require('./components/Rol.vue'));
 
 const app = new Vue({
     el: '#app',
-    data :{
-        menu : 0
+    data: {
+        menu: 0
     }
 });
