@@ -19,13 +19,13 @@ class UserController extends Controller
         if ($buscar == '') {
             $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
                 ->join('roles', 'users.idrol', '=', 'roles.id')
-                ->select('users.id', 'personas.nombre', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'roles.nombre as rol')
-                ->orderBy('users.id', 'desc')->paginate(3);
+                ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
+                ->orderBy('personas.apellido', 'asc')->paginate(3);
         } else {
             $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
                 ->join('roles', 'users.idrol', '=', 'roles.id')
-                ->select('users.id', 'personas.nombre', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'roles.nombre as rol')
-                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(3);
+                ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
+                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('personas.apellido', 'asc')->paginate(3);
         }
 
         return [
@@ -45,45 +45,27 @@ class UserController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
 
-            $user = new User();
-            $user->idper = $request->idper;
-            $user->idrol = $request->idrol;
-            $user->usuario = $request->usuario;
-            $user->password = bcrypt($request->password);
-            $user->condicion = '1';
-            $user->save();
-
-           
+        $user = new User();
+        $user->idper = $request->idper;
+        $user->idrol = $request->idrol;
+        $user->usuario = $request->usuario;
+        $user->password = bcrypt($request->password);
+        $user->condicion = '1';
+        $user->save();
     }
 
     public function update(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
 
-        try {
-            DB::beginTransaction();
+        $user = User::findOrFail($request->id);
+        $user->idper = $request->idper;
+        $user->idrol = $request->idrol;
+        $user->usuario = $request->usuario;
+        $user->password = bcrypt($request->password);
+        $user->condicion = '1';
 
-            $user = User::findOrFail($request->id);
-            $persona = Persona::findOrFail($user->id);
-            $persona->nombre = $request->nombre;
-            $persona->tipo_documento = $request->tipo_documento;
-            $persona->num_documento = $request->num_documento;
-            $persona->direccion = $request->direccion;
-            $persona->telefono = $request->telefono;
-            $persona->email = $request->email;
-            $persona->save();
-
-
-            $user->usuario = $request->usuario;
-            $user->password = bcrypt($request->password);
-            $user->condicion = '1';
-            $user->idrol = $request->idrol;
-            $user->save();
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
+        $user->save();
     }
 
     public function desactivar(Request $request)

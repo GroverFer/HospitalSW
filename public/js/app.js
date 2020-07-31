@@ -34609,12 +34609,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // props: ['ruta'],
     data: function data() {
         return {
-            persona_id: 0,
+            id: '',
             usuario: '',
             password: '',
             idrol: '',
@@ -34736,17 +34738,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var me = this;
 
-            axios.put(this.ruta + '/user/actualizar', {
-                'nombre': this.nombre,
-                'tipo_documento': this.tipo_documento,
-                'num_documento': this.num_documento,
-                'direccion': this.direccion,
-                'telefono': this.telefono,
-                'email': this.email,
+            axios.put('/user/actualizar', {
+
+                'id': this.id,
                 'idrol': this.idrol,
                 'usuario': this.usuario,
                 'password': this.password,
-                'id': this.persona_id
+                'idper': this.idper
             }).then(function (response) {
                 me.cerrarModal();
                 me.listarUsuario(1, '', 'nombre');
@@ -34806,16 +34804,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.modal = 1;
                                     this.tituloModal = 'Actualizar Usuario';
                                     this.tipoAccion = 2;
-                                    this.persona_id = data['id'];
-                                    this.nombre = data['nombre'];
-                                    this.tipo_documento = data['tipo_documento'];
-                                    this.num_documento = data['num_documento'];
-                                    this.direccion = data['direccion'];
-                                    this.telefono = data['telefono'];
-                                    this.email = data['email'];
+                                    this.idper = data['idper'];
                                     this.usuario = data['usuario'];
                                     this.password = data['password'];
                                     this.idrol = data['idrol'];
+                                    this.id = data['id'];
                                     break;
                                 }
                         }
@@ -35045,7 +35038,7 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                _vm.abrirModal("usuario", "actualizar", usuario)
+                                _vm.abrirModal("persona", "actualizar", usuario)
                               }
                             }
                           },
@@ -35086,6 +35079,10 @@ var render = function() {
                       ],
                       2
                     ),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(usuario.apellido) }
+                    }),
                     _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(usuario.nombre) }
@@ -35561,6 +35558,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Opciones")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Apellido")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),

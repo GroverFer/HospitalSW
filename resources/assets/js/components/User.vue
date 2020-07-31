@@ -34,6 +34,7 @@
                         <thead>
                             <tr>
                                 <th>Opciones</th>
+                                <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Tipo Documento</th>
                                 <th>Número</th>
@@ -46,7 +47,7 @@
                         <tbody>
                             <tr v-for="usuario in arrayUsuario" :key="usuario.id">
                                 <td>
-                                    <button type="button" @click="abrirModal('usuario','actualizar',usuario)"
+                                    <button type="button" @click="abrirModal('persona','actualizar',usuario)"
                                         class="btn btn-warning btn-sm">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
@@ -63,6 +64,7 @@
                                         </button>
                                     </template>
                                 </td>
+                                <td v-text="usuario.apellido"></td>
                                 <td v-text="usuario.nombre"></td>
                                 <td v-text="usuario.tipo_documento"></td>
                                 <td v-text="usuario.num_documento"></td>
@@ -172,7 +174,7 @@
         // props: ['ruta'],
         data() {
             return {
-                persona_id: 0,
+                id: '',
                 usuario: '',
                 password: '',
                 idrol: '',
@@ -298,17 +300,13 @@
 
                 let me = this;
 
-                axios.put(this.ruta + '/user/actualizar', {
-                    'nombre': this.nombre,
-                    'tipo_documento': this.tipo_documento,
-                    'num_documento': this.num_documento,
-                    'direccion': this.direccion,
-                    'telefono': this.telefono,
-                    'email': this.email,
+                axios.put('/user/actualizar', {
+
+                    'id': this.id,
                     'idrol': this.idrol,
                     'usuario': this.usuario,
                     'password': this.password,
-                    'id': this.persona_id
+                    'idper': this.idper
                 }).then(function (response) {
                     me.cerrarModal();
                     me.listarUsuario(1, '', 'nombre');
@@ -363,16 +361,11 @@
                                 this.modal = 1;
                                 this.tituloModal = 'Actualizar Usuario';
                                 this.tipoAccion = 2;
-                                this.persona_id = data['id'];
-                                this.nombre = data['nombre'];
-                                this.tipo_documento = data['tipo_documento'];
-                                this.num_documento = data['num_documento'];
-                                this.direccion = data['direccion'];
-                                this.telefono = data['telefono'];
-                                this.email = data['email'];
+                                this.idper = data['idper'];
                                 this.usuario = data['usuario'];
                                 this.password = data['password'];
                                 this.idrol = data['idrol'];
+                                this.id = data['id'];
                                 break;
                             }
                         }
