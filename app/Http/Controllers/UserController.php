@@ -45,30 +45,15 @@ class UserController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
 
-        try {
-            DB::beginTransaction();
-
-            $persona = new Persona();
-            $persona->nombre = $request->nombre;
-            $persona->tipo_documento = $request->tipo_documento;
-            $persona->num_documento = $request->num_documento;
-            $persona->direccion = $request->direccion;
-            $persona->telefono = $request->telefono;
-            $persona->email = $request->email;
-            $persona->save();
-
             $user = new User();
-            $user->id = $persona->id;
+            $user->idper = $request->idper;
             $user->idrol = $request->idrol;
             $user->usuario = $request->usuario;
             $user->password = bcrypt($request->password);
             $user->condicion = '1';
             $user->save();
 
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
+           
     }
 
     public function update(Request $request)

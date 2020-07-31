@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/rol', 'RolController@index');
+Route::get('/rol/selectRol', 'RolController@selectRol');
 
 
 Route::get('/user', 'UserController@index');
@@ -23,3 +24,6 @@ Route::post('/user/registrar', 'UserController@store');
 Route::put('/user/actualizar', 'UserController@update');
 Route::put('/user/desactivar', 'UserController@desactivar');
 Route::put('/user/activar', 'UserController@activar');
+
+Route::get('/persona', 'PersonaController@index');
+Route::get('/persona/selectPersona', 'PersonaController@selectPersona');
