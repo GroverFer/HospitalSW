@@ -34713,7 +34713,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             me.listarUsuario(page, buscar, criterio);
         },
         registrarUsuario: function registrarUsuario() {
-            if (this.validarPersona()) {
+            if (this.validarUsuario()) {
                 return;
             }
             var me = this;
@@ -34731,8 +34731,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
-        actualizarPersona: function actualizarPersona() {
-            if (this.validarPersona()) {
+        actualizarUsuario: function actualizarUsuario() {
+            if (this.validarUsuario()) {
                 return;
             }
 
@@ -34752,7 +34752,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
-        validarPersona: function validarPersona() {
+        validarUsuario: function validarUsuario() {
             this.errorUsuario = 0;
             this.errorMostrarMsjUsuario = [];
 
@@ -34826,7 +34826,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 buttonsStyling: false
             });
             swalWithBootstrapButtons.fire({
-                title: "Estas seguro de desactivar esta Usuario?",
+                title: "Estas seguro desactivar este Usuario?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Aceptar",
@@ -34954,16 +34954,16 @@ var render = function() {
                     }
                   },
                   [
+                    _c("option", { attrs: { value: "apellido" } }, [
+                      _vm._v("Apellido")
+                    ]),
+                    _vm._v(" "),
                     _c("option", { attrs: { value: "nombre" } }, [
                       _vm._v("Nombre")
                     ]),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "num_documento" } }, [
                       _vm._v("Documento")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "email" } }, [
-                      _vm._v("Email")
                     ]),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "telefono" } }, [
@@ -35328,7 +35328,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("Role")]
+                        [_vm._v("Rol")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -35427,7 +35427,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("password")]
+                        [_vm._v("Password")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -35443,7 +35443,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "password",
-                            placeholder: "password del usuario"
+                            placeholder: "Password del usuario"
                           },
                           domProps: { value: _vm.password },
                           on: {
@@ -35527,7 +35527,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            _vm.actualizarPersona()
+                            _vm.actualizarUsuario()
                           }
                         }
                       },

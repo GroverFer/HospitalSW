@@ -8,54 +8,54 @@
                 Mantenimiento
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Gestionar Colaboradores</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Gestionar Personal</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=1" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-people"></i> Colaboradores Registrados</a>
+                        <a class="nav-link" href="#"><i class="icon-people"></i>Colaboradores Registrados</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Gestionar Area</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=3" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-wallet"></i> Ingresos</a>
+                        <a class="nav-link" href="#"><i class="icon-wallet"></i>Departamentos</a>
                     </li>
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
+                        <a class="nav-link" href="#"><i class="icon-wallet"></i>Especialidad</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calendar"></i>Gestionar Permisos</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=5" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Ventas</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>CU</a>
                     </li>
                     <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>CU</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Gestionar Acceso</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=7" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user"></i> Usuarios</a>
+                        <a class="nav-link" href="#"><i class="icon-user"></i>Usuarios</a>
                     </li>
                     <li @click="menu=8" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Roles</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-graph"></i>Reportes</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=9" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ingresos</a>
+                        <a class="nav-link" href="#"><i class="icon-graph"></i> Reporte Faltas</a>
                     </li>
                     <li @click="menu=10" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ventas</a>
+                        <a class="nav-link" href="#"><i class="icon-graph"></i> Reporte Dias</a>
                     </li>
                 </ul>
             </li>

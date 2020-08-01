@@ -18,9 +18,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
+                                    <option value="apellido">Apellido</option>
                                     <option value="nombre">Nombre</option>
                                     <option value="num_documento">Documento</option>
-                                    <option value="email">Email</option>
                                     <option value="telefono">Teléfono</option>
                                 </select>
                                 <input type="text" v-model="buscar" @keyup.enter="listarUsuario(1,buscar,criterio)"
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Role</label>
+                                <label class="col-md-3 form-control-label" for="email-input">Rol</label>
                                 <div class="col-md-9">
                                     <select v-model="idrol" class="form-control">
                                         <option value="0" disabled>Seleccione</option>
@@ -137,10 +137,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">password</label>
+                                <label class="col-md-3 form-control-label" for="email-input">Password</label>
                                 <div class="col-md-9">
                                     <input type="password" v-model="password" class="form-control"
-                                        placeholder="password del usuario">
+                                        placeholder="Password del usuario">
                                 </div>
                             </div>
                             <div v-show="errorUsuario" class="form-group row div-error">
@@ -158,7 +158,7 @@
                         <button type="button" v-if="tipoAccion==1" class="btn btn-primary"
                             @click="registrarUsuario()">Guardar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-primary"
-                            @click="actualizarPersona()">Actualizar</button>
+                            @click="actualizarUsuario()">Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -275,7 +275,7 @@
                 me.listarUsuario(page, buscar, criterio);
             },
             registrarUsuario() {
-                if (this.validarPersona()) {
+                if (this.validarUsuario()) {
                     return;
                 }
                 let me = this;
@@ -293,8 +293,8 @@
                     console.log(error);
                 });
             },
-            actualizarPersona() {
-                if (this.validarPersona()) {
+            actualizarUsuario() {
+                if (this.validarUsuario()) {
                     return;
                 }
 
@@ -314,7 +314,7 @@
                     console.log(error);
                 });
             },
-            validarPersona() {
+            validarUsuario() {
                 this.errorUsuario = 0;
                 this.errorMostrarMsjUsuario = [];
 
@@ -382,7 +382,7 @@
                 });
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Estas seguro de desactivar esta Usuario?",
+                        title: "Estas seguro desactivar este Usuario?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonText: "Aceptar",

@@ -20,12 +20,12 @@ class UserController extends Controller
             $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
                 ->join('roles', 'users.idrol', '=', 'roles.id')
                 ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
-                ->orderBy('personas.apellido', 'asc')->paginate(3);
+                ->orderBy('personas.apellido', 'asc')->paginate(6);
         } else {
             $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
                 ->join('roles', 'users.idrol', '=', 'roles.id')
                 ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
-                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('personas.apellido', 'asc')->paginate(3);
+                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('personas.apellido', 'asc')->paginate(6);
         }
 
         return [
