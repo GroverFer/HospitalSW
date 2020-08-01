@@ -27,3 +27,10 @@ Route::put('/user/activar', 'UserController@activar');
 
 Route::get('/persona', 'PersonaController@index');
 Route::get('/persona/selectPersona', 'PersonaController@selectPersona');
+
+
+Route::get('/departamento', 'DepartamentoController@index');
+Route::post('/departamento/registrar', 'DepartamentoController@store');
+Route::put('/departamento/actualizar', 'DepartamentoController@update');
+Route::put('/departamento/desactivar', 'DepartamentoController@desactivar');
+Route::put('/departamento/activar', 'DepartamentoController@activar');
