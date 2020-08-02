@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Especialidad;
+use App\Especialidad;
+use App\Departamento;
 
 class EspecialidadController extends Controller
 {
@@ -16,14 +17,30 @@ class EspecialidadController extends Controller
 
         if ($buscar == '') {
             $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
-                ->select('especialidades.id', 'especialidades.nombre',  'especialidades.descripcion', 'departamentos.nombre')
+                ->select('especialidades.id', 'especialidades.nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
+                ->orderBy('especialidades.nombre', 'asc')->paginate(6);
+        } elseif ($criterio == 'iddep') {
+            $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
+                ->select('especialidades.id', 'especialidades.nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
+                ->where('departamentos.nombre', 'like', '%' . $buscar . '%')
                 ->orderBy('especialidades.nombre', 'asc')->paginate(6);
         } else {
             $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
-                ->join('roles', 'especialidades.idrol', '=', 'roles.id')
-                ->select('especialidades.id', 'especialidades.nombre',  'especialidades.descripcion', 'departamentos.nombre')
-                ->where('especialidades.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('especialidades.nombre', 'asc')->paginate(6);
+                ->select('especialidades.id', 'especialidades.nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
+                ->where('especialidades.' . $criterio, 'like', '%' . $buscar . '%')
+                ->orderBy('especialidades.nombre', 'asc')->paginate(6);
         }
+
+        // if ($buscar == '') {
+        //     $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
+        //         ->select('especialidades.id', 'especialidades.nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
+        //         ->orderBy('especialidades.nombre', 'asc')->paginate(6);
+        // } else {
+        //     $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
+        //         ->select('especialidades.id', 'especialidades.nombre as nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
+        //         ->where('especialidades.' . $criterio, 'like', '%' . $buscar . '%')
+        //         ->orderBy('especialidades.nombre', 'asc')->paginate(6);
+        // }
 
         return [
             'pagination' => [
@@ -43,6 +60,7 @@ class EspecialidadController extends Controller
         if (!$request->ajax()) return redirect('/');
 
         $especialidad = new Especialidad();
+        $especialidad->iddep = $request->iddep;
         $especialidad->nombre = $request->nombre;
         $especialidad->descripcion = $request->descripcion;
         $especialidad->condicion = '1';
@@ -54,10 +72,10 @@ class EspecialidadController extends Controller
         if (!$request->ajax()) return redirect('/');
 
         $especialidad = Especialidad::findOrFail($request->id);
-        $especialidad->usuario = $request->usuario;
-        $especialidad->descripcion = bcrypt($request->descripcion);
+        $especialidad->iddep = $request->iddep;
+        $especialidad->nombre = $request->nombre;
+        $especialidad->descripcion = $request->descripcion;
         $especialidad->condicion = '1';
-
         $especialidad->save();
     }
 

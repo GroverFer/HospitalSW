@@ -34,3 +34,11 @@ Route::post('/departamento/registrar', 'DepartamentoController@store');
 Route::put('/departamento/actualizar', 'DepartamentoController@update');
 Route::put('/departamento/desactivar', 'DepartamentoController@desactivar');
 Route::put('/departamento/activar', 'DepartamentoController@activar');
+Route::get('/departamento/selectDep', 'DepartamentoController@selectDep');
+
+
+Route::get('/especialidad', 'EspecialidadController@index');
+Route::post('/especialidad/registrar', 'EspecialidadController@store');
+Route::put('/especialidad/actualizar', 'EspecialidadController@update');
+Route::put('/especialidad/desactivar', 'EspecialidadController@desactivar');
+Route::put('/especialidad/activar', 'EspecialidadController@activar');

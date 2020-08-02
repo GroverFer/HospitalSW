@@ -18,6 +18,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('rol', require('./components/Rol.vue'));
 Vue.component('user', require('./components/User.vue'));
 Vue.component('departamento', require('./components/Departamento.vue'));
+Vue.component('especialidad', require('./components/Especialidad.vue'));
 
 const app = new Vue({
     el: '#app',

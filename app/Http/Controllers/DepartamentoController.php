@@ -72,7 +72,7 @@ class DepartamentoController extends Controller
     }
     public function selectDep(Request $request)
     {
-        $roles = Departamento::where('condicion', '=', '1')
+        $departamentos = Departamento::where('condicion', '=', '1')
             ->select('id', 'nombre')
             ->orderBy('nombre', 'asc')->get();
 
