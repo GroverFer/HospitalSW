@@ -31,16 +31,6 @@ class EspecialidadController extends Controller
                 ->orderBy('especialidades.nombre', 'asc')->paginate(6);
         }
 
-        // if ($buscar == '') {
-        //     $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
-        //         ->select('especialidades.id', 'especialidades.nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
-        //         ->orderBy('especialidades.nombre', 'asc')->paginate(6);
-        // } else {
-        //     $especialidades = Especialidad::join('departamentos', 'especialidades.iddep', '=', 'departamentos.id')
-        //         ->select('especialidades.id', 'especialidades.nombre as nombre', 'especialidades.descripcion', 'departamentos.nombre as depa', 'especialidades.condicion', 'especialidades.iddep')
-        //         ->where('especialidades.' . $criterio, 'like', '%' . $buscar . '%')
-        //         ->orderBy('especialidades.nombre', 'asc')->paginate(6);
-        // }
 
         return [
             'pagination' => [
