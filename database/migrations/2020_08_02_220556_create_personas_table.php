@@ -15,6 +15,8 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('iddepar')->unsigned();
+            $table->foreign('iddepar')->references('id')->on('departamentos')->onDelete('cascade');
             $table->string('nombre', 100)->required();
             $table->string('apellido', 100)->required();
             $table->date('fecha_nac')->required();
@@ -26,7 +28,8 @@ class CreatePersonasTable extends Migration
             $table->string('email', 50)->required();
             $table->integer('anio_experiencia')->required();
             $table->integer('registro')->required();
-            $table->boolean('estado')->default(1);
+            $table->string('foto', 100)->required();
+            $table->boolean('condicion')->default(1);
             $table->timestamps();
         });
     }
