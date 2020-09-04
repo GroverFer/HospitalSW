@@ -26,6 +26,10 @@ Route::put('/user/desactivar', 'UserController@desactivar');
 Route::put('/user/activar', 'UserController@activar');
 
 Route::get('/persona', 'PersonaController@index');
+Route::post('/persona/registrar', 'PersonaController@store');
+Route::put('/persona/actualizar', 'PersonaController@update');
+Route::put('/persona/activar', 'PersonaController@activar');
+Route::put('/persona/desactivar', 'PersonaController@desactivar');
 Route::get('/persona/selectPersona', 'PersonaController@selectPersona');
 
 

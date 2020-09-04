@@ -51,7 +51,7 @@ class PersonaController extends Controller
         $persona->anio_experiencia = $request->anio_experiencia;
         $persona->registro = $request->registro;
         $persona->foto = $request->foto;
-        $persona->condicion = $request->condicion;
+        $persona->condicion = '1';
 
         $persona->save();
     }
@@ -73,7 +73,7 @@ class PersonaController extends Controller
         $persona->anio_experiencia = $request->anio_experiencia;
         $persona->registro = $request->registro;
         $persona->foto = $request->foto;
-        $persona->condicion = $request->condicion;
+        $persona->condicion = '1';
         $persona->save();
     }
 
