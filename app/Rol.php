@@ -6,12 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rol extends Model
 {
-    protected $table = 'roles';
-    protected $fillable = ['nombre','descripcion','condicion'];
+    protected $primaryKey = 'id';
+    protected $table = 'rol';
+    protected $fillable = [
+        'id','nombre','descripcion','condicion'
+    ];
     public $timestamps = false;
-
-    public function users()
+    public static function find($id)
     {
-        return $this->hasMany('App\User');
+        return static::where('id',compact('id'))->first();
+    }
+    public function user()
+    {
+        return $this->hasMany('App\User', 'id_usuario', 'id');
     }
 }

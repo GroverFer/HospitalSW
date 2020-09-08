@@ -4,20 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Especialidad extends Model
+class Tipo_empleado extends Model
 {
     protected $primaryKey = 'id';
-    protected $table = 'especialidad';
+    protected $table = 'tipo_empleado';
     protected $fillable = [
-        'id', 'nombre', 'descripcion', 'condicion'
+        'id', 'cargo', 'descripcion', 'condicion'
     ];
     public $timestamps = false;
     public static function find($id)
     {
         return static::where('id',compact('id'))->first();
     }
-    public function especialidad_persona()
+    public function persona()
     {
-        return $this->hasMany('App\Especialidad_persona', 'id', 'id');
+        return $this->hasMany('App\Persona', 'id_persona', 'id');
     }
 }

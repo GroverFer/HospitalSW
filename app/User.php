@@ -14,26 +14,22 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $primaryKey = 'id';
+    protected $table = 'users';
     protected $fillable = [
-        'id', 'idper', 'usuario', 'password', 'condicion', 'idrol'
+        'id', 'registro', 'password', 'condicion', 'id_rol'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
+    public $timestamps = false;
+    public static function find($id)
+    {
+        return static::where('id',compact('id'))->first();
+    }
     public function rol()
     {
-        return $this->belongsTo('App\Rol');
+        return $this->belongsTo('App\Rol','id_rol');
     }
-
     public function persona()
     {
-        return $this->belongsTo('App\Persona');
+        return $this->hasOne('App\Persona', 'id_usuario', 'id');
     }
 }

@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Departamento extends Model
 {
-    protected $table = 'departamentos';
-    protected $fillable = ['nombre', 'descripcion', 'condicion'];
-
-    public function especialidad()
+    protected $primaryKey = 'id';
+    protected $table = 'departamento';
+    protected $fillable = [
+        'id','nombre', 'descripcion','latitud','longitud','condicion'
+    ];
+    public $timestamps = false;
+    public static function find($id)
     {
-        return $this->hasMany('App\Especialidad');
+        return static::where('id',compact('id'))->first();
     }
-    public function persona()
+    public function departamento_persona()
     {
-        return $this->hasMany('App\Persona');
+        return $this->hasMany('App\Departamento_persona', 'id', 'id');
     }
 }
