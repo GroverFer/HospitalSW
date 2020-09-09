@@ -18,6 +18,6 @@ class Tipo_empleado extends Model
     }
     public function persona()
     {
-        return $this->hasMany('App\Persona', 'id_persona', 'id');
+        return $this->hasMany('App\Persona', 'id_tipoempleado', 'id');
     }
 }

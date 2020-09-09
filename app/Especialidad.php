@@ -18,6 +18,6 @@ class Especialidad extends Model
     }
     public function especialidad_persona()
     {
-        return $this->hasMany('App\Especialidad_persona', 'id', 'id');
+        return $this->hasMany('App\Especialidad_persona', 'id_especialidad', 'id');
     }
 }

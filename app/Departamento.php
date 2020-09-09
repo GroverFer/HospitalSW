@@ -18,6 +18,6 @@ class Departamento extends Model
     }
     public function departamento_persona()
     {
-        return $this->hasMany('App\Departamento_persona', 'id', 'id');
+        return $this->hasMany('App\Departamento_persona', 'id_departamento', 'id');
     }
 }

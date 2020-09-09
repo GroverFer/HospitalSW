@@ -26,10 +26,10 @@ class Persona extends Model
     }
     public function especialidad_persona()
     {
-        return $this->hasMany('App\Especialidad_persona', 'id', 'id');
+        return $this->hasMany('App\Especialidad_persona', 'id_persona', 'id');
     }
     public function departamento_persona()
     {
-        return $this->hasMany('App\Departamento_persona', 'id', 'id');
+        return $this->hasMany('App\Departamento_persona', 'id_persona', 'id');
     }
 }
