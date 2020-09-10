@@ -34608,26 +34608,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // props: ['ruta'],
     data: function data() {
         return {
             id: '',
-            usuario: '',
+            registro: '',
             password: '',
-            idrol: '',
-            idper: '',
+            id_rol: '',
             arrayUsuario: [],
             arrayRol: [],
-            arrayPersona: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -34642,7 +34633,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'to': 0
             },
             offset: 3,
-            criterio: 'nombre',
+            criterio: 'registro',
             buscar: ''
         };
     },
@@ -34698,17 +34689,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
-        selectPersona: function selectPersona() {
-            var me = this;
-            var url = '/persona/selectPersona';
-            axios.get(url).then(function (response) {
-                //console.log(response);
-                var respuesta = response.data;
-                me.arrayPersona = respuesta.personas;
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
         cambiarPagina: function cambiarPagina(page, buscar, criterio) {
             var me = this;
             //Actualiza la página actual
@@ -34723,14 +34703,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var me = this;
 
             axios.post('/user/registrar', {
-                'idper': this.idper,
-                'idrol': this.idrol,
-                'usuario': this.usuario,
+                'id_rol': this.id_rol,
+                'registro': this.registro,
                 'password': this.password
 
             }).then(function (response) {
                 me.cerrarModal();
-                me.listarUsuario(1, '', 'nombre');
+                me.listarUsuario(1, '', 'registro');
             }).catch(function (error) {
                 console.log(error);
             });
@@ -34745,13 +34724,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.put('/user/actualizar', {
 
                 'id': this.id,
-                'idrol': this.idrol,
-                'usuario': this.usuario,
-                'password': this.password,
-                'idper': this.idper
+                'id_rol': this.id_rol,
+                'registro': this.registro,
+                'password': this.password
             }).then(function (response) {
                 me.cerrarModal();
-                me.listarUsuario(1, '', 'nombre');
+                me.listarUsuario(1, '', 'registro');
             }).catch(function (error) {
                 console.log(error);
             });
@@ -34760,10 +34738,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.errorUsuario = 0;
             this.errorMostrarMsjUsuario = [];
 
-            if (this.idper == 0) this.errorMostrarMsjUsuario.push("Seleccione una Colaborador.");
-            if (!this.usuario) this.errorMostrarMsjUsuario.push("El nombre de usuario no puede estar vacío.");
-            if (!this.password) this.errorMostrarMsjUsuario.push("La password del usuario no puede estar vacía.");
-            if (this.idrol == 0) this.errorMostrarMsjUsuario.push("Seleccione una Role.");
+            if (!this.registro) this.errorMostrarMsjUsuario.push("El registro del usuario no puede estar vacío.");
+            if (!this.password) this.errorMostrarMsjUsuario.push("La password del usuario no puede estar vacío.");
+            if (this.id_rol == 0) this.errorMostrarMsjUsuario.push("Seleccione un Rol.");
             if (this.errorMostrarMsjUsuario.length) this.errorUsuario = 1;
 
             return this.errorUsuario;
@@ -34771,47 +34748,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cerrarModal: function cerrarModal() {
             this.modal = 0;
             this.tituloModal = '';
-            this.nombre = '';
-            this.tipo_documento = 'DNI';
-            this.num_documento = '';
-            this.direccion = '';
-            this.telefono = '';
-            this.email = '';
-            this.usuario = '';
+            this.registro = '';
             this.password = '';
-            this.idrol = 0;
+            this.id_rol = 0;
             this.errorUsuario = 0;
         },
         abrirModal: function abrirModal(modelo, accion) {
             var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
             this.selectRol();
-            this.selectPersona();
             switch (modelo) {
-                case "persona":
+                case "usuario":
                     {
                         switch (accion) {
                             case 'registrar':
                                 {
                                     this.modal = 1;
                                     this.tituloModal = 'Registrar Usuario';
-                                    this.usuario = '';
+                                    this.registro = '';
                                     this.password = '';
-                                    this.idrol = 0;
-                                    this.idper = 0;
+                                    this.id_rol = 0;
                                     this.tipoAccion = 1;
                                     break;
                                 }
                             case 'actualizar':
                                 {
-                                    //console.log(data);
+                                    console.log(data);
                                     this.modal = 1;
                                     this.tituloModal = 'Actualizar Usuario';
                                     this.tipoAccion = 2;
-                                    this.idper = data['idper'];
-                                    this.usuario = data['usuario'];
+                                    this.registro = data['registro'];
                                     this.password = data['password'];
-                                    this.idrol = data['idrol'];
+                                    this.id_rol = data['id_rol'];
                                     this.id = data['id'];
                                     break;
                                 }
@@ -34842,7 +34810,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.put("/user/desactivar", {
                         id: id
                     }).then(function (response) {
-                        me.listarUsuario(1, '', 'nombre');
+                        me.listarUsuario(1, '', 'registro');
                         swalWithBootstrapButtons.fire("Desactivado!", "El Usuario ha sido desactivado con exito.", "success");
                     }).catch(function (error) {
                         console.log(error);
@@ -34875,7 +34843,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.put("/user/activar", {
                         id: id
                     }).then(function (response) {
-                        me.listarUsuario(1, '', 'nombre');
+                        me.listarUsuario(1, '', 'registro');
                         swalWithBootstrapButtons.fire("Activado!", "El Usuario ha sido activado con exito.", "success");
                     }).catch(function (error) {
                         console.log(error);
@@ -34914,7 +34882,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  _vm.abrirModal("persona", "registrar")
+                  _vm.abrirModal("usuario", "registrar")
                 }
               }
             },
@@ -34958,20 +34926,16 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { value: "apellido" } }, [
-                      _vm._v("Apellido")
+                    _c("option", { attrs: { value: "registro" } }, [
+                      _vm._v("Registro")
                     ]),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "nombre" } }, [
                       _vm._v("Nombre")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "num_documento" } }, [
-                      _vm._v("Documento")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "telefono" } }, [
-                      _vm._v("Teléfono")
+                    _c("option", { attrs: { value: "apellido" } }, [
+                      _vm._v("Apellido")
                     ])
                   ]
                 ),
@@ -35044,7 +35008,7 @@ var render = function() {
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
-                                _vm.abrirModal("persona", "actualizar", usuario)
+                                _vm.abrirModal("usuario", "actualizar", usuario)
                               }
                             }
                           },
@@ -35087,7 +35051,11 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(usuario.apellido) }
+                      domProps: { textContent: _vm._s(usuario.registro) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(usuario.password) }
                     }),
                     _vm._v(" "),
                     _c("td", {
@@ -35095,26 +35063,26 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(usuario.tipo_documento) }
+                      domProps: { textContent: _vm._s(usuario.apellido) }
                     }),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(usuario.num_documento) }
+                      domProps: { textContent: _vm._s(usuario.rolnombre) }
                     }),
                     _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(usuario.telefono) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(usuario.email) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { textContent: _vm._s(usuario.usuario) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", { domProps: { textContent: _vm._s(usuario.rol) } })
+                    _c("td", [
+                      usuario.condicion
+                        ? _c("div", [
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Activo")
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v("Desactivado")
+                            ])
+                          ])
+                    ])
                   ])
                 })
               )
@@ -35269,69 +35237,6 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("Colaborador")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.idper,
-                                expression: "idper"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.idper = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Seleccione")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayPersona, function(persona) {
-                              return _c("option", {
-                                key: persona.id,
-                                domProps: {
-                                  value: persona.id,
-                                  textContent: _vm._s(
-                                    persona.apellido + " " + persona.nombre
-                                  )
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "email-input" }
-                        },
                         [_vm._v("Rol")]
                       ),
                       _vm._v(" "),
@@ -35343,8 +35248,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.idrol,
-                                expression: "idrol"
+                                value: _vm.id_rol,
+                                expression: "id_rol"
                               }
                             ],
                             staticClass: "form-control",
@@ -35358,7 +35263,7 @@ var render = function() {
                                     var val = "_value" in o ? o._value : o.value
                                     return val
                                   })
-                                _vm.idrol = $event.target.multiple
+                                _vm.id_rol = $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
                               }
@@ -35371,12 +35276,12 @@ var render = function() {
                               [_vm._v("Seleccione")]
                             ),
                             _vm._v(" "),
-                            _vm._l(_vm.arrayRol, function(role) {
+                            _vm._l(_vm.arrayRol, function(rol) {
                               return _c("option", {
-                                key: role.id,
+                                key: rol.id,
                                 domProps: {
-                                  value: role.id,
-                                  textContent: _vm._s(role.nombre)
+                                  value: rol.id,
+                                  textContent: _vm._s(rol.nombre)
                                 }
                               })
                             })
@@ -35393,7 +35298,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "email-input" }
                         },
-                        [_vm._v("Usuario")]
+                        [_vm._v("Registro")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -35402,22 +35307,22 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.usuario,
-                              expression: "usuario"
+                              value: _vm.registro,
+                              expression: "registro"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Nombre del usuario"
+                            placeholder: "Registro del usuario"
                           },
-                          domProps: { value: _vm.usuario },
+                          domProps: { value: _vm.registro },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.usuario = $event.target.value
+                              _vm.registro = $event.target.value
                             }
                           }
                         })
@@ -35565,21 +35470,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Opciones")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Apellido")]),
+        _c("th", [_vm._v("Registro")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Password")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo Documento")]),
+        _c("th", [_vm._v("Apellido")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Número")]),
+        _c("th", [_vm._v("Rol")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Teléfono")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Usuario")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Role")])
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   }
@@ -39726,6 +39627,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // props: ['ruta'],
@@ -40155,7 +40066,21 @@ var render = function() {
                       domProps: {
                         textContent: _vm._s(tipo_empleado.descripcion)
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      tipo_empleado.condicion
+                        ? _c("div", [
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v("Activo")
+                            ])
+                          ])
+                        : _c("div", [
+                            _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v("Desactivado")
+                            ])
+                          ])
+                    ])
                   ])
                 })
               )
@@ -40486,7 +40411,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Cargo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Descripcion")])
+        _c("th", [_vm._v("Descripcion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")])
       ])
     ])
   }

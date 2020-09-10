@@ -51,8 +51,6 @@ class Tipo_empleadoController extends Controller
         $tipo_empleado = Tipo_empleado::findOrFail($request->id);
         $tipo_empleado->cargo = $request->cargo;
         $tipo_empleado->descripcion = $request->descripcion;
-        $tipo_empleado->condicion = '1';
-
         $tipo_empleado->save();
     }
 

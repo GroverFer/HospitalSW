@@ -17,15 +17,15 @@ class UserController extends Controller
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
-                ->join('roles', 'users.idrol', '=', 'roles.id')
-                ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
-                ->orderBy('personas.apellido', 'asc')->paginate(6);
+            $usuarios = User::join('persona', 'persona.id_usuario', '=', 'users.id')
+                ->join('rol', 'rol.id', '=', 'users.id_rol')
+                ->select('users.id', 'users.registro','users.password','users.condicion','persona.nombre','persona.apellido','users.id_rol','rol.nombre as rolnombre')
+                ->orderBy('users.id', 'desc')->paginate(6);
         } else {
-            $usuarios = User::join('personas', 'users.idper', '=', 'personas.id')
-                ->join('roles', 'users.idrol', '=', 'roles.id')
-                ->select('users.id', 'personas.nombre', 'personas.apellido', 'personas.tipo_documento', 'personas.num_documento', 'personas.telefono', 'personas.email', 'users.usuario', 'users.password', 'users.condicion', 'users.idrol', 'users.idper', 'roles.nombre as rol')
-                ->where('personas.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('personas.apellido', 'asc')->paginate(6);
+            $usuarios = User::join('persona', 'persona.id_usuario', '=', 'users.id')
+                ->join('rol', 'rol.id', '=', 'users.id_rol')
+                ->select('users.id', 'users.registro','users.password','users.condicion','persona.nombre','persona.apellido','users.id_rol','rol.nombre as rolnombre')
+                ->where('persona.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('users.id', 'desc')->paginate(6);
         }
 
         return [
@@ -44,13 +44,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-
+        
         $user = new User();
-        $user->idper = $request->idper;
-        $user->idrol = $request->idrol;
-        $user->usuario = $request->usuario;
+        $user->registro = $request->registro;
         $user->password = bcrypt($request->password);
         $user->condicion = '1';
+        $user->id_rol=$request->id_rol;
         $user->save();
     }
 
@@ -59,12 +58,9 @@ class UserController extends Controller
         if (!$request->ajax()) return redirect('/');
 
         $user = User::findOrFail($request->id);
-        $user->idper = $request->idper;
-        $user->idrol = $request->idrol;
-        $user->usuario = $request->usuario;
+        $user->registro = $request->registro;
         $user->password = bcrypt($request->password);
-        $user->condicion = '1';
-
+        $user->id_rol=$request->id_rol;
         $user->save();
     }
 

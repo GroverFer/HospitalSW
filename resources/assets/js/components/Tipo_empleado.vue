@@ -35,6 +35,7 @@
                                 <th>Opciones</th>
                                 <th>Cargo</th>
                                 <th>Descripcion</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +61,15 @@
                                 </td>
                                 <td v-text="tipo_empleado.cargo"></td>
                                 <td v-text="tipo_empleado.descripcion"></td>
+                                <td>
+                                    <div v-if="tipo_empleado.condicion">
+                                        <span class="badge badge-success">Activo</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="badge badge-danger">Desactivado</span>
+                                    </div>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
