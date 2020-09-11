@@ -62,3 +62,9 @@ Route::put('/tipo_empleado/actualizar', 'Tipo_empleadoController@update');
 Route::put('/tipo_empleado/desactivar', 'Tipo_empleadoController@desactivar');
 Route::put('/tipo_empleado/activar', 'Tipo_empleadoController@activar');
 Route::get('/tipo_empleado/selectTipo_empleado', 'Tipo_empleadoController@selectTipo_empleado');
+
+Route::get('/especialidad_persona', 'Especialidad_personaController@index');
+Route::post('/especialidad_persona/registrar', 'Especialidad_personaController@store');
+Route::put('/especialidad_persona/actualizar', 'Especialidad_personaController@update');
+Route::put('/especialidad_persona/desactivar', 'Especialidad_personaController@desactivar');
+Route::put('/especialidad_persona/activar', 'Especialidad_personaController@activar');
