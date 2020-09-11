@@ -16,7 +16,6 @@ class CreatePersonaTable extends Migration
     {
         Schema::create('persona', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('registro',50)->unique();
             $table->string('nombre', 100)->required();
             $table->string('apellido', 100)->required();
             $table->string('ci', 30)->required();
@@ -35,12 +34,12 @@ class CreatePersonaTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
-        DB::table('persona')->insert(array('registro' => '216011965', 'nombre' => 'Jose Mishael','apellido' => 'Chile Laime', 'ci' => '11374590'
-        ,'fecha_nac' => '1998-09-07', 'genero' => 'M','telefono' => '71366663', 'año_experiencia' => '3','tipo_sangre' => 'O+'
-        ,'email' => 'jose.mishael.chile@gmail.com','foto' => 'here', 'condicion' => '1','id_tipoempleado' => '1', 'id_usuario' => '1'));
-        DB::table('persona')->insert(array('registro' => '216011966', 'nombre' => 'Maria Guadalupe','apellido' => 'Flores Flores', 'ci' => '54261129'
-        ,'fecha_nac' => '1990-05-05', 'genero' => 'F','telefono' => '68488527', 'año_experiencia' => '1','tipo_sangre' => 'O+'
-        ,'email' => 'maria.guadalupe.flores2@gmail.com','foto' => 'here', 'condicion' => '1','id_tipoempleado' => '2', 'id_usuario' => '2'));
+        DB::table('persona')->insert(array(
+            'nombre' => 'Jose Mishael', 'apellido' => 'Chile Laime', 'ci' => '11374590', 'fecha_nac' => '1998-09-07', 'genero' => 'M', 'telefono' => '71366663', 'año_experiencia' => '3', 'tipo_sangre' => 'O+', 'email' => 'jose.mishael.chile@gmail.com', 'foto' => 'here', 'condicion' => '1', 'id_tipoempleado' => '1', 'id_usuario' => '1'
+        ));
+        DB::table('persona')->insert(array(
+            'nombre' => 'Maria Guadalupe', 'apellido' => 'Flores Flores', 'ci' => '54261129', 'fecha_nac' => '1990-05-05', 'genero' => 'F', 'telefono' => '68488527', 'año_experiencia' => '1', 'tipo_sangre' => 'O+', 'email' => 'maria.guadalupe.flores2@gmail.com', 'foto' => 'here', 'condicion' => '1', 'id_tipoempleado' => '2', 'id_usuario' => '2'
+        ));
     }
 
     /**
