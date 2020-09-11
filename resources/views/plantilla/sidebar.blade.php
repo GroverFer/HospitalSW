@@ -11,7 +11,10 @@
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Gestionar Personal</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=1" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-people"></i>Colaboradores Registrados</a>
+                        <a class="nav-link" href="#"><i class="icon-people"></i>Empleados</a>
+                    </li>
+                    <li @click="menu=2" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Tipos de Empleados</a>
                     </li>
                 </ul>
             </li>
@@ -19,10 +22,10 @@
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Gestionar Area</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=3" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-wallet"></i>Departamentos</a>
+                        <a class="nav-link" href="#"><i class="icon-notebook"></i>Departamentos</a>
                     </li>
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-wallet"></i>Especialidad</a>
+                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades</a>
                     </li>
                 </ul>
             </li>
@@ -44,10 +47,7 @@
                         <a class="nav-link" href="#"><i class="icon-user"></i>Usuarios</a>
                     </li>
                     <li @click="menu=8" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Roles</a>
-                    </li>
-                    <li @click="menu=13" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Tipos de Empleados</a>
+                        <a class="nav-link" href="#"><i class="icon-layers"></i>Roles</a>
                     </li>
                 </ul>
             </li>

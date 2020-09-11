@@ -9,7 +9,7 @@ class Persona extends Model
     protected $primaryKey = 'id';
     protected $table = 'persona';
     protected $fillable = [
-        'id','registro','nombre','apellido','ci','fecha_nac','genero','telefono','año_experiencia','tipo_sangre','email','foto','condicion','id_tipoempleado','id_usuario'
+        'id','nombre','apellido','ci','fecha_nac','genero','telefono','año_experiencia','tipo_sangre','email','foto','condicion','id_tipoempleado','id_usuario'
     ];
     public $timestamps = false;
     public static function find($id)

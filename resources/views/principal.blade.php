@@ -8,8 +8,8 @@
     <meta name="description" content="Sistema Ventas Laravel Vue Js- IncanatoIT">
     <meta name="author" content="Incanatoit.com">
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
-    <link rel="shortcut icon" href="img/favicon.png">
-    <title>Sistema de Control de asistencia</title>
+    <link rel="shortcut icon" href="img/logosc.jpg">
+    <title>SEDES</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icons -->
     <link href="css/plantilla.css" rel="stylesheet">

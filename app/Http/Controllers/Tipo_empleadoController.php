@@ -69,4 +69,13 @@ class Tipo_empleadoController extends Controller
         $tipo_empleado->condicion = '1';
         $tipo_empleado->save();
     }
+
+    public function selectTipo_empleado()
+    {
+        $tipos_empleados = Tipo_empleado::where('condicion', '=', '1')
+            ->select('id', 'cargo')
+            ->orderBy('id', 'desc')->get();
+
+        return ['tipos_empleados' => $tipos_empleados];
+    }
 }

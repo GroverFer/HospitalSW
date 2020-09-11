@@ -15,9 +15,9 @@ class DepartamentoController extends Controller
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $departamentos = Departamento::orderBy('nombre', 'asc')->paginate(6);
+            $departamentos = Departamento::orderBy('id', 'desc')->paginate(6);
         } else {
-            $departamentos = Departamento::where($criterio, 'like', '%' . $buscar . '%')->orderBy('nombre', 'asc')->paginate(6);
+            $departamentos = Departamento::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(6);
         }
 
         return [
@@ -40,6 +40,8 @@ class DepartamentoController extends Controller
         $departamento = new Departamento();
         $departamento->nombre = $request->nombre;
         $departamento->descripcion = $request->descripcion;
+        $departamento->latitud = $request->latitud;
+        $departamento->longitud = $request->longitud;
         $departamento->condicion = '1';
         $departamento->save();
     }
@@ -51,7 +53,8 @@ class DepartamentoController extends Controller
         $departamento = Departamento::findOrFail($request->id);
         $departamento->nombre = $request->nombre;
         $departamento->descripcion = $request->descripcion;
-        $departamento->condicion = '1';
+        $departamento->latitud = $request->latitud;
+        $departamento->longitud = $request->longitud;
         $departamento->save();
     }
 
@@ -70,11 +73,12 @@ class DepartamentoController extends Controller
         $departamento->condicion = '1';
         $departamento->save();
     }
-    public function selectDep(Request $request)
+
+    public function selectDepartamento()
     {
         $departamentos = Departamento::where('condicion', '=', '1')
             ->select('id', 'nombre')
-            ->orderBy('nombre', 'asc')->get();
+            ->orderBy('id', 'desc')->get();
 
         return ['departamentos' => $departamentos];
     }

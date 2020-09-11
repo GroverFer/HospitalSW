@@ -8,8 +8,8 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Colaborador
-                    <button type="button" @click="abrirModal('especialidad','registrar')" class="btn btn-secondary">
+                    <i class="fa fa-align-justify"></i> Persona
+                    <button type="button" @click="abrirModal('persona','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
@@ -19,12 +19,13 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                     <option value="nombre">Nombre</option>
-                                    <option value="descripcion">Descripcion</option>
-                                    <option value="iddepar">Departamento</option>
+                                    <option value="apellido">Apellido</option>
+                                    <option value="email">Email</option>
+                                    <option value="tipo_sangre">Tipo de Sangre</option>
                                 </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listarEspecialidad(1,buscar,criterio)"
+                                <input type="text" v-model="buscar" @keyup.enter="listarPersona(1,buscar,criterio)"
                                     class="form-control" placeholder="Texto a buscar">
-                                <button type="submit" @click="listarEspecialidad(1,buscar,criterio)"
+                                <button type="submit" @click="listarPersona(1,buscar,criterio)"
                                     class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                             </div>
                         </div>
@@ -33,44 +34,61 @@
                         <thead>
                             <tr>
                                 <th>Opciones</th>
-                                <th>Departamento</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Fecha de nacimiento</th>
+                                <th>C.I.</th>
+                                <th>Fecha de Nacimiento</th>
                                 <th>Genero</th>
-                                <th>Tipo de sangre</th>
                                 <th>Telefono</th>
-                                <th>Tipo documento</th>
-                                <th>Numero de documento</th>
+                                <th>Año de Experiencia</th>
+                                <th>Tipo de sangre</th>
                                 <th>Email</th>
-                                <th>Año de experiencia</th>
-                                <th>Registro</th>
                                 <th>Foto</th>
+                                <th>Tipo de Empleado</th>
+                                <th>Usuario</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="colaborador in arrayColaborador" :key="especialidad.id">
+                            <tr v-for="persona in arrayPersona" :key="persona.id">
                                 <td>
-                                    <button type="button" @click="abrirModal('especialidad','actualizar',especialidad)"
+                                    <button type="button" @click="abrirModal('persona','actualizar',persona)"
                                         class="btn btn-warning btn-sm">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <template v-if="colaborador.condicion">
+                                    <template v-if="persona.condicion">
                                         <button type="button" class="btn btn-danger btn-sm"
-                                            @click="desactivarEspecialidad(colaborador.id)">
+                                            @click="desactivarPersona(persona.id)">
                                             <i class="icon-trash"></i>
                                         </button>
                                     </template>
                                     <template v-else>
                                         <button type="button" class="btn btn-info btn-sm"
-                                            @click="activarEspecialidad(colaborador.id)">
+                                            @click="activarPersona(persona.id)">
                                             <i class="icon-check"></i>
                                         </button>
                                     </template>
                                 </td>
-                                <td v-text="colaborador.nombre"></td>
-                                <td v-text="colaborador.descripcion"></td>
-                                <td v-text="colaborador.depa"></td>
+                                <td v-text="persona.nombre"></td>
+                                <td v-text="persona.apellido"></td>
+                                <td v-text="persona.ci"></td>
+                                <td v-text="persona.fecha_nac"></td>
+                                <td v-text="persona.genero"></td>
+                                <td v-text="persona.telefono"></td>
+                                <td v-text="persona.año_experiencia"></td>
+                                <td v-text="persona.tipo_sangre"></td>
+                                <td v-text="persona.email"></td>
+                                <td v-text="persona.foto"></td>
+                                <td v-text="persona.cargo"></td>
+                                <td v-text="persona.registro"></td>
+                                <td>
+                                    <div v-if="persona.condicion">
+                                        <span class="badge badge-success">Activo</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="badge badge-danger">Desactivado</span>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -113,14 +131,21 @@
                                 <label class="col-md-3 form-control-label" for="email-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
-                                        placeholder="Nombre de colaborador">
+                                        placeholder="Nombre de la Persona">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Apellido</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="apellido" class="form-control"
-                                        placeholder="Apellido de colaborador">
+                                        placeholder="Apellido de la Persona">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">C.I.</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="ci" class="form-control"
+                                        placeholder="CI de la Persona">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -131,22 +156,35 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Genero de
-                                    colaborador</label>
+                                    la Persona</label>
                                 <div class="col-md-9">
                                     <select v-model="genero" class="form-control">
-                                        <option value="0" disabled>Seleccione el genero de colaborador</option>
-                                        <option value="Masculino">Masculino</option>
-                                        <option value="Femenino">Femenino</option>
+                                        <option value="0" disabled>Seleccione el genero de la Persona</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="telefono" class="form-control"
+                                        placeholder="Telefono de la Persona">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Año de experiencia</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="año_experiencia" class="form-control"
+                                        placeholder="Año de experiencia del colaborador">
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Tipo de
                                     sangre</label>
                                 <div class="col-md-9">
                                     <select v-model="tipo_sangre" class="form-control">
-                                        <option value="0" disabled>Seleccione el tipo de sangre del colaborador</option>
+                                        <option value="0" disabled>Seleccione el tipo de sangre de la Persona</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
                                         <option value="A+">A+</option>
@@ -158,60 +196,13 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Telefono</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="telefono" class="form-control"
-                                        placeholder="Telefono de colaborador">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Tipo de
-                                    documento</label>
-                                <div class="col-md-9">
-                                    <select v-model="tipo_documento" class="form-control">
-                                        <option value="0" disabled>Seleccione el tipo de documento del colaborador
-                                        </option>
-                                        <option value="Pasaporte">Pasaporte</option>
-                                        <option value="Cedula de identidad">Cedula de identidad</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Numero de documento</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="num_documento" class="form-control"
-                                        placeholder="Numero de documento del colaborador">
-                                </div>
-                            </div>
-
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Email</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="email" class="form-control"
-                                        placeholder="Correo del colaborador">
+                                        placeholder="Correo de la Persona">
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Año de experiencia</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="anio_experiencia" class="form-control"
-                                        placeholder="Año de experiencia del colaborador">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Registro</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="registro" class="form-control"
-                                        placeholder="Registro del colaborador">
-                                </div>
-                            </div>
-
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Foto</label>
                                 <div class="col-md-9">
@@ -221,19 +212,30 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Departamento</label>
+                                <label class="col-md-3 form-control-label" for="email-input">Tipo de Empleado</label>
                                 <div class="col-md-9">
-                                    <select v-model="iddepar" class="form-control">
-                                        <option value="0" disabled>Seleccione al departamento que se asignara</option>
-                                        <option v-for="departamento in arrayDepartamento" :key="departamento.id"
-                                            :value="departamento.id" v-text="departamento.nombre"></option>
+                                    <select v-model="id_tipoempleado" class="form-control">
+                                        <option value="0" disabled>Seleccione el Tipo de Empleado que se le asignara</option>
+                                        <option v-for="tipo_empleado in arrayTipo_empleado" :key="tipo_empleado.id"
+                                            :value="tipo_empleado.id" v-text="tipo_empleado.cargo"></option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div v-show="errorColaborador" class="form-group row div-error">
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Usuario</label>
+                                <div class="col-md-9">
+                                    <select v-model="id_usuario" class="form-control">
+                                        <option value="0" disabled>Seleccione al usuario que se le asignara</option>
+                                        <option v-for="users in arrayUsuario" :key="users.id"
+                                            :value="users.id" v-text="users.registro"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div v-show="errorPersona" class="form-group row div-error">
                                 <div class="text-center text-error">
-                                    <div v-for="error in errorMostrarMsjColaborador" :key="error" v-text="error">
+                                    <div v-for="error in errorMostrarMsjPersona" :key="error" v-text="error">
 
                                     </div>
                                 </div>
@@ -244,9 +246,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
                         <button type="button" v-if="tipoAccion==1" class="btn btn-primary"
-                            @click="registrarColaborador()">Guardar</button>
+                            @click="registrarPersona()">Guardar</button>
                         <button type="button" v-if="tipoAccion==2" class="btn btn-primary"
-                            @click="actualizarEspecialidad()">Actualizar</button>
+                            @click="actualizarPersona()">Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -265,24 +267,24 @@
                 id: '',
                 nombre: '',
                 apellido: '',
+                ci: '',
                 fecha_nac: '',
                 genero: '',
-                tipo_sangre: '',
                 telefono: '',
-                tipo_documento: '',
-                num_documento: '',
+                año_experiencia: '',
+                tipo_sangre: '',
                 email: '',
-                anio_experiencia: '',
-                registro: '',
                 foto: '',
-                iddepar: '',
-                arrayColaborador: [],
-                arrayDepartamento: [],
+                id_tipoempleado: '',
+                id_usuario: '',
+                arrayPersona: [],
+                arrayTipo_empleado: [],
+                arrayUsuario: [],
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
-                errorColaborador: 0,
-                errorMostrarMsjColaborador: [],
+                errorPersona: 0,
+                errorMostrarMsjPersona: [],
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -326,25 +328,37 @@
             }
         },
         methods: {
-            listarEspecialidad(page, buscar, criterio) {
+            listarPersona(page, buscar, criterio) {
                 let me = this;
-                var url = '/especialidad?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+                var url = '/persona?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
                         var respuesta = response.data;
-                        me.arrayColaborador = respuesta.especialidades.data;
+                        me.arrayPersona = respuesta.personas.data;
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
-            selectDep() {
+            selectTipo_empleado() {
                 let me = this;
-                var url = '/departamento/selectDep';
+                var url = '/tipo_empleado/selectTipo_empleado';
                 axios.get(url).then(function (response) {
                         //console.log(response);
                         var respuesta = response.data;
-                        me.arrayDepartamento = respuesta.departamentos;
+                        me.arrayTipo_empleado = respuesta.tipos_empleados;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            selectUsuario() {
+                let me = this;
+                var url = '/user/selectUsuario';
+                axios.get(url).then(function (response) {
+                        //console.log(response);
+                        var respuesta = response.data;
+                        me.arrayUsuario = respuesta.usuarios;
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -357,8 +371,8 @@
                 //Envia la petición para visualizar la data de esa página
                 me.listarEspecialidad(page, buscar, criterio);
             },
-            registrarColaborador() {
-                if (this.validarColaborador()) {
+            registrarPersona() {
+                if (this.validarPersona()) {
                     return;
                 }
                 let me = this;
@@ -367,114 +381,144 @@
 
                     'nombre': this.nombre,
                     'apellido': this.apellido,
+                    'ci': this.ci,
                     'fecha_nac': this.fecha_nac,
                     'genero': this.genero,
-                    'tipo_sangre': this.tipo_sangre,
                     'telefono': this.telefono,
-                    'tipo_documento': this.tipo_documento,
-                    'num_documento': this.num_documento,
+                    'año_experiencia': this.año_experiencia,
+                    'tipo_sangre': this.tipo_sangre,
                     'email': this.email,
-                    'anio_experiencia': this.anio_experiencia,
-                    'registro': this.registro,
                     'foto': this.foto,
-                    'iddepar': this.iddepar
+                    'id_tipoempleado': this.id_tipoempleado,
+                    'id_usuario': this.id_usuario,
 
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarEspecialidad(1, '', 'nombre');
+                    me.listarPersona(1, '', 'nombre');
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
-            actualizarEspecialidad() {
-                if (this.validarColaborador()) {
+            actualizarPersona() {
+                if (this.validarPersona()) {
                     return;
                 }
 
                 let me = this;
 
-                axios.put('/especialidad/actualizar', {
+                axios.put('/persona/actualizar', {
                     'id': this.id,
-                    'iddepar': this.iddepar,
                     'nombre': this.nombre,
-                    'descripcion': this.descripcion,
+                    'apellido': this.apellido,
+                    'ci': this.ci,
+                    'fecha_nac': this.fecha_nac,
+                    'genero': this.genero,
+                    'telefono': this.telefono,
+                    'año_experiencia': this.año_experiencia,
+                    'tipo_sangre': this.tipo_sangre,
+                    'email': this.email,
+                    'foto': this.foto,
+                    'id_tipoempleado': this.id_tipoempleado,
+                    'id_usuario': this.id_usuario,
                 }).then(function (response) {
                     me.cerrarModal();
-                    me.listarEspecialidad(1, '', 'nombre');
+                    me.listarPersona(1, '', 'nombre');
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
-            validarColaborador() {
-                this.errorColaborador = 0;
-                this.errorMostrarMsjColaborador = [];
-                if (!this.nombre) this.errorMostrarMsjColaborador.push(
+            validarPersona() {
+                this.errorPersona = 0;
+                this.errorMostrarMsjPersona = [];
+                if (!this.nombre) this.errorMostrarMsjPersona.push(
                     "El nombre no puede estar vacío.");
-                if (!this.apellido) this.errorMostrarMsjColaborador.push(
+                if (!this.apellido) this.errorMostrarMsjPersona.push(
                     "El apellido no puede estar vacío.");
-                if (!this.fecha_nac) this.errorMostrarMsjColaborador.push(
+                if (!this.ci) this.errorMostrarMsjPersona.push(
+                    "El C.I. no puede estar vacío.");
+                if (!this.fecha_nac) this.errorMostrarMsjPersona.push(
                     "La fecha de nacimiento no puede estar vacío.");
-                if (this.genero == 0) this.errorMostrarMsjColaborador.push("Seleccione un Genero.");
-                if (this.tipo_sangre == 0) this.errorMostrarMsjColaborador.push("Seleccione un Tipo de sangre.");
-                if (!this.telefono) this.errorMostrarMsjColaborador.push(
+                if (this.genero == 0) this.errorMostrarMsjPersona.push("Seleccione un Genero.");
+                if (!this.telefono) this.errorMostrarMsjPersona.push(
                     "El Telefono no puede estar vacío.");
-                if (this.tipo_documento == 0) this.errorMostrarMsjColaborador.push("Seleccione un Tipo de documento.");
-                if (!this.num_documento) this.errorMostrarMsjColaborador.push(
-                    "El Numero de documento no puede estar vacío.");
-                if (!this.email) this.errorMostrarMsjColaborador.push(
-                    "El correo no puede estar vacío.");
-                if (!this.anio_experiencia) this.errorMostrarMsjColaborador.push(
+                if (!this.año_experiencia) this.errorMostrarMsjPersona.push(
                     "El Año de experiencia no puede estar vacío.");
-                if (!this.registro) this.errorMostrarMsjColaborador.push(
-                    "El Registro no puede estar vacío.");
-                if (!this.foto) this.errorMostrarMsjColaborador.push(
+                if (this.tipo_sangre == 0) this.errorMostrarMsjPersona.push("Seleccione un Tipo de sangre.");
+                if (!this.email) this.errorMostrarMsjPersona.push(
+                    "El correo no puede estar vacío.");
+                if (!this.foto) this.errorMostrarMsjPersona.push(
                     "La foto no puede estar vacío.");
-                if (this.iddepar == 0) this.errorMostrarMsjColaborador.push("Seleccione un Departamento.");
+                if (this.id_tipoempleado == 0) this.errorMostrarMsjPersona.push("Seleccione un Tipo de Empleado.");
+                if (this.id_usuario == 0) this.errorMostrarMsjPersona.push("Seleccione un Usuario.");
 
-                if (this.errorMostrarMsjColaborador.length) this.errorColaborador = 1;
+                if (this.errorMostrarMsjPersona.length) this.errorPersona = 1;
 
-                return this.errorColaborador;
+                return this.errorPersona;
             },
             cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
+
                 this.nombre = '';
-                this.descripcion = '';
-                this.iddepar = 0;
-                this.errorColaborador = 0;
+                this.apellido = '';
+                this.ci = '',
+                this.fecha_nac = '',
+                this.genero = '',
+                this.telefono = '',
+                this.año_experiencia = '',
+                this.tipo_sangre = '',
+                this.email = '',
+                this.foto = '',
+                this.id_tipoempleado = 0;
+                this.id_usuario = 0;
+
+                this.errorPersona = 0;
             },
             abrirModal(modelo, accion, data = []) {
-                this.selectDep();
+                this.selectTipo_empleado();
+                this.selectUsuario();
                 switch (modelo) {
-                    case "especialidad": {
+                    case "persona": {
                         switch (accion) {
                             case 'registrar': {
                                 this.modal = 1;
-                                this.tituloModal = 'Registrar de Colaborador';
+                                this.tituloModal = 'Registrar Persona';
+
                                 this.nombre = '';
                                 this.apellido = '';
-                                this.fecha_nac = '';
-                                this.genero = 0;
-                                this.tipo_sangre = 0;
-                                this.telefono = '';
-                                this.tipo_documento = 0;
-                                this.num_documento = '';
-                                this.email = '';
-                                this.anio_experiencia = '';
-                                this.registro = '';
-                                this.foto = '';
-                                this.iddepar = 0;
+                                this.ci = '',
+                                this.fecha_nac = '',
+                                this.genero = '',
+                                this.telefono = '',
+                                this.año_experiencia = '',
+                                this.tipo_sangre = '',
+                                this.email = '',
+                                this.foto = '',
+                                this.id_tipoempleado = 0;
+                                this.id_usuario = 0;
+
                                 this.tipoAccion = 1;
                                 break;
                             }
                             case 'actualizar': {
                                 //console.log(data);
                                 this.modal = 1;
-                                this.tituloModal = 'Actualizar Colaborador';
+                                this.tituloModal = 'Actualizar Persona';
                                 this.tipoAccion = 2;
+
                                 this.nombre = data['nombre'];
-                                this.descripcion = data['descripcion'];
-                                this.iddepar = data['iddepar'];
+                                this.apellido = data['apellido'];
+                                this.ci = data['ci'],
+                                this.fecha_nac = data['fecha_nac'],
+                                this.genero = data['genero'],
+                                this.telefono = data['telefono'],
+                                this.año_experiencia = data['año_experiencia'],
+                                this.tipo_sangre = data['tipo_sangre'],
+                                this.email = data['email'],
+                                this.foto = data['foto'],
+                                this.id_tipoempleado = data['id_tipoempleado'];
+                                this.id_usuario = data['id_usuario'];
+
                                 this.id = data['id'];
                                 break;
                             }
@@ -482,7 +526,7 @@
                     }
                 }
             },
-            desactivarEspecialidad(id) {
+            desactivarPersona(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: "btn btn-success",
@@ -492,7 +536,7 @@
                 });
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Estas seguro desactivar este Especialidad?",
+                        title: "Estas seguro desactivar esta Persona?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonText: "Aceptar",
@@ -503,14 +547,14 @@
                         if (result.value) {
                             let me = this;
                             axios
-                                .put("/especialidad/desactivar", {
+                                .put("/persona/desactivar", {
                                     id: id
                                 })
                                 .then(function (response) {
-                                    me.listarEspecialidad(1, '', 'nombre');
+                                    me.listarPersona(1, '', 'nombre');
                                     swalWithBootstrapButtons.fire(
                                         "Desactivado!",
-                                        "La Especialidad ha sido desactivado con exito.",
+                                        "La Persona ha sido desactivado con exito.",
                                         "success"
                                     );
                                 })
@@ -523,7 +567,7 @@
                         ) {}
                     });
             },
-            activarEspecialidad(id) {
+            activarPersona(id) {
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: "btn btn-success",
@@ -533,7 +577,7 @@
                 });
                 swalWithBootstrapButtons
                     .fire({
-                        title: "Estas seguro de Activar esta Especialidad?",
+                        title: "Estas seguro de Activar esta Persona?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonText: "Aceptar",
@@ -544,14 +588,14 @@
                         if (result.value) {
                             let me = this;
                             axios
-                                .put("/especialidad/activar", {
+                                .put("/persona/activar", {
                                     id: id
                                 })
                                 .then(function (response) {
-                                    me.listarEspecialidad(1, '', 'nombre');
+                                    me.listarPersona(1, '', 'nombre');
                                     swalWithBootstrapButtons.fire(
                                         "Activado!",
-                                        "La Especialidad ha sido activado con exito.",
+                                        "La Persona ha sido activado con exito.",
                                         "success"
                                     );
                                 })
@@ -566,7 +610,7 @@
             },
         },
         mounted() {
-            this.listarEspecialidad(1, this.buscar, this.criterio);
+            this.listarPersona(1, this.buscar, this.criterio);
         }
     }
 </script>

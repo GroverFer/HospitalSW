@@ -9,6 +9,9 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i> Roles
+                    <button type="button" @click="abrirModal('rol','registrar')" class="btn btn-secondary">
+                        <i class="icon-plus"></i>&nbsp;Nuevo
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -18,9 +21,9 @@
                                     <option value="nombre">Nombre</option>
                                     <option value="descripcion">Descripción</option>
                                 </select>
-                                <input type="text" v-model="buscar" @keyup.enter="listarRol(1,buscar,criterio)"
+                                <input type="text" v-model="buscar" @keyup.enter="listarRoles(1,buscar,criterio)"
                                     class="form-control" placeholder="Texto a buscar">
-                                <button type="submit" @click="listarRol(1,buscar,criterio)" class="btn btn-primary"><i
+                                <button type="submit" @click="listarRoles(1,buscar,criterio)" class="btn btn-primary"><i
                                         class="fa fa-search"></i> Buscar</button>
                             </div>
                         </div>
@@ -28,6 +31,7 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
+                                <th>Opciones</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Estado</th>
@@ -35,6 +39,26 @@
                         </thead>
                         <tbody>
                             <tr v-for="rol in arrayRol" :key="rol.id">
+
+                                <td>
+                                    <button type="button"
+                                        @click="abrirModal('rol','actualizar',rol)"
+                                        class="btn btn-warning btn-sm">
+                                        <i class="icon-pencil"></i>
+                                    </button> &nbsp;
+                                    <template v-if="rol.condicion">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            @click="desactivarRol(rol.id)">
+                                            <i class="icon-trash"></i>
+                                        </button>
+                                    </template>
+                                    <template v-else>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            @click="activarRol(rol.id)">
+                                            <i class="icon-check"></i>
+                                        </button>
+                                    </template>
+                                </td>
 
                                 <td v-text="rol.nombre"></td>
                                 <td v-text="rol.descripcion"></td>
@@ -71,6 +95,56 @@
             </div>
             <!-- Fin ejemplo de tabla Listado -->
         </div>
+        <!--Inicio del modal agregar/actualizar-->
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" aria-labelledby="myModalLabel"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" v-text="tituloModal"></h4>
+                        <button type="button" class="close" @click="cerrarModal()" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" class="form-control"
+                                        placeholder="Nombre del Rol">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Descripcion</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="descripcion" class="form-control"
+                                        placeholder="Descripcion del Rol">
+                                </div>
+                            </div>
+                            <div v-show="errorRoles" class="form-group row div-error">
+                                <div class="text-center text-error">
+                                    <div v-for="error in errorMostrarMsjRoles" :key="error" v-text="error">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
+                        <button type="button" v-if="tipoAccion==1" class="btn btn-primary"
+                            @click="registrarRoles()">Guardar</button>
+                        <button type="button" v-if="tipoAccion==2" class="btn btn-primary"
+                            @click="actualizarRol()">Actualizar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!--Fin del modal-->
     </main>
 </template>
 
@@ -79,13 +153,15 @@
         // props: ['ruta'],
         data() {
             return {
-                rol_id: 0,
+                id: 0,
                 nombre: '',
                 descripcion: '',
                 arrayRol: [],
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
+                errorRoles: 0,
+                errorMostrarMsjRoles: [],
                 pagination: {
                     'total': 0,
                     'current_page': 0,
@@ -129,7 +205,7 @@
             }
         },
         methods: {
-            listarRol(page, buscar, criterio) {
+            listarRoles(page, buscar, criterio) {
                 let me = this;
                 var url = '/rol?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
                 axios.get(url).then(function (response) {
@@ -146,11 +222,177 @@
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarRol(page, buscar, criterio);
-            }
+                me.listarRoles(page, buscar, criterio);
+            },
+
+
+
+            registrarRoles() {
+                if (this.validarRoles()) {
+                    return;
+                }
+                let me = this;
+
+                axios.post('/rol/registrar', {
+                    'nombre': this.nombre,
+                    'descripcion': this.descripcion
+                }).then(function (response) {
+                    me.cerrarModal();
+                    me.listarRoles(1, '', 'nombre');
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            actualizarRol() {
+                if (this.validarRoles()) {
+                    return;
+                }
+
+                let me = this;
+
+                axios.put('/rol/actualizar', {
+                    'id': this.id,
+                    'nombre': this.nombre,
+                    'descripcion': this.descripcion
+                }).then(function (response) {
+                    me.cerrarModal();
+                    me.listarRoles(1, '', 'nombre');
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            validarRoles() {
+                this.errorRoles = 0;
+                this.errorMostrarMsjRoles = [];
+
+                if (!this.nombre) this.errorMostrarMsjRoles.push("El nombre del Rol no puede estar Vacio.");
+                if (!this.descripcion) this.errorMostrarMsjRoles.push(
+                    "La descripcion no puede estar Vacio.");
+
+                if (this.errorMostrarMsjRoles.length) this.errorRoles = 1;
+                return this.errorRoles;
+            },
+            cerrarModal() {
+                this.modal = 0;
+                this.tituloModal = '';
+                this.nombre = '';
+                this.descripcion = '';
+
+            },
+            abrirModal(modelo, accion, data = []) {
+                switch (modelo) {
+                    case "rol": {
+                        switch (accion) {
+                            case 'registrar': {
+                                this.modal = 1;
+                                this.tituloModal = 'Registrar Rol';
+                                this.nombre = '';
+                                this.descripcion = '';
+                                this.tipoAccion = 1;
+                                break;
+                            }
+                            case 'actualizar': {
+                                //console.log(data);
+                                this.modal = 1;
+                                this.tituloModal = 'Actualizar Rol';
+                                this.tipoAccion = 2;
+                                this.nombre = data['nombre'];
+                                this.descripcion = data['descripcion'];
+                                this.id = data['id'];
+                                break;
+                            }
+                        }
+                    }
+                }
+            },
+            desactivarRol(id) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Estas seguro desactivar este Rol?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Aceptar",
+                        cancelButtonText: "Cancelar",
+                        reverseButtons: true
+                    })
+                    .then(result => {
+                        if (result.value) {
+                            let me = this;
+                            axios
+                                .put("/rol/desactivar", {
+                                    id: id
+                                })
+                                .then(function (response) {
+                                    me.listarRoles(1, '', 'nombre');
+                                    swalWithBootstrapButtons.fire(
+                                        "Desactivado!",
+                                        "El Rol ha sido desactivado con exito.",
+                                        "success"
+                                    );
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {}
+                    });
+            },
+            activarRol(id) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Estas seguro de Activar este Rol?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Aceptar",
+                        cancelButtonText: "Cancelar",
+                        reverseButtons: true
+                    })
+                    .then(result => {
+                        if (result.value) {
+                            let me = this;
+                            axios
+                                .put("/rol/activar", {
+                                    id: id
+                                })
+                                .then(function (response) {
+                                    me.listarRoles(1, '', 'nombre');
+                                    swalWithBootstrapButtons.fire(
+                                        "Activado!",
+                                        "El Rol ha sido activado con exito.",
+                                        "success"
+                                    );
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {}
+                    });
+            },
         },
+
+
+
         mounted() {
-            this.listarRol(1, this.buscar, this.criterio);
+            this.listarRoles(1, this.buscar, this.criterio);
         }
     }
 </script>

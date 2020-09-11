@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 // use App\Persona;
 
 class UserController extends Controller
@@ -17,15 +18,13 @@ class UserController extends Controller
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $usuarios = User::join('persona', 'persona.id_usuario', '=', 'users.id')
-                ->join('rol', 'rol.id', '=', 'users.id_rol')
-                ->select('users.id', 'users.registro','users.password','users.condicion','persona.nombre','persona.apellido','users.id_rol','rol.nombre as rolnombre')
+            $usuarios = User::join('rol', 'rol.id', '=', 'users.id_rol')
+                ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
                 ->orderBy('users.id', 'desc')->paginate(6);
         } else {
-            $usuarios = User::join('persona', 'persona.id_usuario', '=', 'users.id')
-                ->join('rol', 'rol.id', '=', 'users.id_rol')
-                ->select('users.id', 'users.registro','users.password','users.condicion','persona.nombre','persona.apellido','users.id_rol','rol.nombre as rolnombre')
-                ->where('persona.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('users.id', 'desc')->paginate(6);
+            $usuarios = User::join('rol', 'rol.id', '=', 'users.id_rol')
+                ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
+                ->where('users.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('users.id', 'desc')->paginate(6);
         }
 
         return [
@@ -59,7 +58,10 @@ class UserController extends Controller
 
         $user = User::findOrFail($request->id);
         $user->registro = $request->registro;
-        $user->password = bcrypt($request->password);
+        if($request->password != $user->password)
+        {
+            $user->password = bcrypt($request->password);
+        }
         $user->id_rol=$request->id_rol;
         $user->save();
     }
@@ -78,5 +80,14 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         $user->condicion = '1';
         $user->save();
+    }
+    
+    public function selectUsuario()
+    {
+        $usuarios = User::where('condicion', '=', '1')
+            ->select('id', 'registro')
+            ->orderBy('id', 'desc')->get();
+
+        return ['usuarios' => $usuarios];
     }
 }

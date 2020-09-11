@@ -15,9 +15,15 @@ class PersonaController extends Controller
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $personas = Persona::orderBy('id', 'desc')->paginate(3);
+            $personas = Persona::join('tipo_empleado','tipo_empleado.id','persona.id_tipoempleado')
+            ->join('users','users.id','persona.id_usuario')
+            ->select('persona.id','persona.nombre','persona.apellido','persona.ci','persona.fecha_nac','persona.genero','persona.telefono','persona.año_experiencia','persona.tipo_sangre','persona.email','persona.foto','persona.condicion','persona.id_tipoempleado','persona.id_usuario','tipo_empleado.cargo as cargo','users.registro as registro')
+            ->orderBy('persona.id', 'desc')->paginate(6);
         } else {
-            $personas = Persona::where($criterio, 'like', '%' . $buscar . '%')->orderBy('id', 'desc')->paginate(3);
+            $personas = Persona::join('tipo_empleado','tipo_empleado.id','persona.id_tipoempleado')
+            ->join('users','users.id','persona.id_usuario')
+            ->select('persona.id','persona.nombre','persona.apellido','persona.ci','persona.fecha_nac','persona.genero','persona.telefono','persona.año_experiencia','persona.tipo_sangre','persona.email','persona.foto','persona.condicion','persona.id_tipoempleado','persona.id_usuario','tipo_empleado.cargo as cargo','users.registro as registro')
+            ->where($criterio, 'like', '%' . $buscar . '%')->orderBy('persona.id', 'desc')->paginate(6);
         }
 
 
@@ -38,21 +44,19 @@ class PersonaController extends Controller
     {
         //if (!$request->ajax()) return redirect('/');
         $persona = new Persona();
-        $persona->iddepar = $request->iddepar;
         $persona->nombre = $request->nombre;
         $persona->apellido = $request->apellido;
+        $persona->ci = $request->ci;
         $persona->fecha_nac = $request->fecha_nac;
         $persona->genero = $request->genero;
-        $persona->tipo_sangre = $request->tipo_sangre;
         $persona->telefono = $request->telefono;
-        $persona->tipo_documento = $request->tipo_documento;
-        $persona->num_documento = $request->num_documento;
+        $persona->año_experiencia = $request->año_experiencia;
+        $persona->tipo_sangre = $request->tipo_sangre;
         $persona->email = $request->email;
-        $persona->anio_experiencia = $request->anio_experiencia;
-        $persona->registro = $request->registro;
         $persona->foto = $request->foto;
+        $persona->id_tipoempleado = $request->id_tipoempleado;
+        $persona->id_usuario = $request->id_usuario;
         $persona->condicion = '1';
-
         $persona->save();
     }
 
@@ -60,20 +64,18 @@ class PersonaController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
         $persona = Persona::findOrFail($request->id);
-        $persona->iddepar = $request->iddepar;
         $persona->nombre = $request->nombre;
         $persona->apellido = $request->apellido;
+        $persona->ci = $request->ci;
         $persona->fecha_nac = $request->fecha_nac;
         $persona->genero = $request->genero;
-        $persona->tipo_sangre = $request->tipo_sangre;
         $persona->telefono = $request->telefono;
-        $persona->tipo_documento = $request->tipo_documento;
-        $persona->num_documento = $request->num_documento;
+        $persona->año_experiencia = $request->año_experiencia;
+        $persona->tipo_sangre = $request->tipo_sangre;
         $persona->email = $request->email;
-        $persona->anio_experiencia = $request->anio_experiencia;
-        $persona->registro = $request->registro;
         $persona->foto = $request->foto;
-        $persona->condicion = '1';
+        $persona->id_tipoempleado = $request->id_tipoempleado;
+        $persona->id_usuario = $request->id_usuario;
         $persona->save();
     }
 
@@ -93,11 +95,11 @@ class PersonaController extends Controller
         $especialidad->save();
     }
 
-    public function selectPersona(Request $request)
+    public function selectPersona()
     {
-        $personas = Persona::where('estado', '=', '1')
-            ->select('id', 'nombre', 'apellido', 'num_documento')
-            ->orderBy('apellido', 'des')->get();
+        $personas = Persona::where('condicion', '=', '1')
+            ->select('id', 'nombre', 'apellido')
+            ->orderBy('id', 'desc')->get();
 
         return ['personas' => $personas];
     }

@@ -20,7 +20,6 @@
                                 <select class="form-control col-md-3" v-model="criterio">
                                     <option value="nombre">Nombre</option>
                                     <option value="descripcion">Descripcion</option>
-                                    <option value="iddep">Departamento</option>
                                 </select>
                                 <input type="text" v-model="buscar" @keyup.enter="listarEspecialidad(1,buscar,criterio)"
                                     class="form-control" placeholder="Texto a buscar">
@@ -35,7 +34,7 @@
                                 <th>Opciones</th>
                                 <th>Nombre</th>
                                 <th>Descripcion</th>
-                                <th>Departamento</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,7 +59,15 @@
                                 </td>
                                 <td v-text="especialidad.nombre"></td>
                                 <td v-text="especialidad.descripcion"></td>
-                                <td v-text="especialidad.depa"></td>
+                                <td>
+                                    <div v-if="especialidad.condicion">
+                                        <span class="badge badge-success">Activo</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="badge badge-danger">Desactivado</span>
+                                    </div>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,7 +107,7 @@
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
 
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Especialidad</label>
+                                <label class="col-md-3 form-control-label" for="email-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
                                         placeholder="Nombre de especialidad">
@@ -111,16 +118,6 @@
                                 <div class="col-md-9">
                                     <input type="text" v-model="descripcion" class="form-control"
                                         placeholder="Descripcion de la Especialidad">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Departamento</label>
-                                <div class="col-md-9">
-                                    <select v-model="iddep" class="form-control">
-                                        <option value="0" disabled>Seleccione</option>
-                                        <option v-for="departamento in arrayDepartamento" :key="departamento.id"
-                                            :value="departamento.id" v-text="departamento.nombre"></option>
-                                    </select>
                                 </div>
                             </div>
                             <div v-show="errorEspecialidad" class="form-group row div-error">
@@ -157,7 +154,6 @@
                 id: '',
                 nombre: '',
                 descripcion: '',
-                iddep: '',
                 arrayEspecialidad: [],
                 arrayDepartamento: [],
                 modal: 0,
@@ -220,18 +216,6 @@
                         console.log(error);
                     });
             },
-            selectDep() {
-                let me = this;
-                var url = '/departamento/selectDep';
-                axios.get(url).then(function (response) {
-                        //console.log(response);
-                        var respuesta = response.data;
-                        me.arrayDepartamento = respuesta.departamentos;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
                 //Actualiza la página actual
@@ -246,7 +230,6 @@
                 let me = this;
 
                 axios.post('/especialidad/registrar', {
-                    'iddep': this.iddep,
                     'nombre': this.nombre,
                     'descripcion': this.descripcion
 
@@ -266,7 +249,6 @@
 
                 axios.put('/especialidad/actualizar', {
                     'id': this.id,
-                    'iddep': this.iddep,
                     'nombre': this.nombre,
                     'descripcion': this.descripcion,
                 }).then(function (response) {
@@ -280,7 +262,6 @@
                 this.errorEspecialidad = 0;
                 this.errorMostrarMsjEspecialidad = [];
 
-                if (this.iddep == 0) this.errorMostrarMsjEspecialidad.push("Seleccione un Departamento.");
                 if (!this.nombre) this.errorMostrarMsjEspecialidad.push(
                     "El nombre de la especialidad no puede estar vacío.");
                 if (!this.descripcion) this.errorMostrarMsjEspecialidad.push(
@@ -294,11 +275,9 @@
                 this.tituloModal = '';
                 this.nombre = '';
                 this.descripcion = '';
-                this.iddep = 0;
                 this.errorEspecialidad = 0;
             },
             abrirModal(modelo, accion, data = []) {
-                this.selectDep();
                 switch (modelo) {
                     case "especialidad": {
                         switch (accion) {
@@ -307,7 +286,6 @@
                                 this.tituloModal = 'Registrar Especialidad';
                                 this.nombre = '';
                                 this.descripcion = '';
-                                this.iddep = 0;
                                 this.tipoAccion = 1;
                                 break;
                             }
@@ -318,7 +296,6 @@
                                 this.tipoAccion = 2;
                                 this.nombre = data['nombre'];
                                 this.descripcion = data['descripcion'];
-                                this.iddep = data['iddep'];
                                 this.id = data['id'];
                                 break;
                             }

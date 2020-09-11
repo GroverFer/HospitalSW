@@ -9,7 +9,7 @@
     </template>
 
     <template v-if="menu==2">
-        <h1>Contenido del menú 2</h1>
+        <tipo_empleado></tipo_empleado>
     </template>
 
     <template v-if="menu==3">
@@ -53,7 +53,7 @@
     </template>
 
     <template v-if="menu==13">
-        <tipo_empleado></tipo_empleado>
+        <h1>Contenido del menú 2</h1>
     </template>
 
     @endsection

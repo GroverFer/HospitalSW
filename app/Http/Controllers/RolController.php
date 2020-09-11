@@ -34,11 +34,48 @@ class RolController extends Controller
         ];
     }
 
+    public function store(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        $rol = new Rol();
+        $rol->nombre = $request->nombre;
+        $rol->descripcion = $request->descripcion;
+        $rol->condicion = '1';
+        $rol->save();
+    }
+
+    public function update(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        $rol = Rol::findOrFail($request->id);
+        $rol->nombre = $request->nombre;
+        $rol->descripcion = $request->descripcion;
+        $rol->save();
+    }
+
+    public function desactivar(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $rol = Rol::findOrFail($request->id);
+        $rol->condicion = '0';
+        $rol->save();
+    }
+
+    public function activar(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $rol = Rol::findOrFail($request->id);
+        $rol->condicion = '1';
+        $rol->save();
+    }
+
     public function selectRol()
     {
         $roles = Rol::where('condicion', '=', '1')
             ->select('id', 'nombre')
-            ->orderBy('id', 'asc')->get();
+            ->orderBy('id', 'desc')->get();
 
         return ['roles' => $roles];
     }

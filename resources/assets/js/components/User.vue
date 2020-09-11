@@ -19,8 +19,7 @@
                             <div class="input-group">
                                 <select class="form-control col-md-3" v-model="criterio">
                                     <option value="registro">Registro</option>
-                                    <option value="nombre">Nombre</option>
-                                    <option value="apellido">Apellido</option>
+                                    <option value="id_rol">Rol</option>
                                 </select>
                                 <input type="text" v-model="buscar" @keyup.enter="listarUsuario(1,buscar,criterio)"
                                     class="form-control" placeholder="Texto a buscar">
@@ -35,8 +34,6 @@
                                 <th>Opciones</th>
                                 <th>Registro</th>
                                 <th>Password</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
                             </tr>
@@ -63,8 +60,6 @@
                                 </td>
                                 <td v-text="usuario.registro"></td>
                                 <td v-text="usuario.password"></td>
-                                <td v-text="usuario.nombre"></td>
-                                <td v-text="usuario.apellido"></td>
                                 <td v-text="usuario.rolnombre"></td>
                                 <td>
                                     <div v-if="usuario.condicion">
@@ -277,13 +272,13 @@
                 }
 
                 let me = this;
-
+                console.log('111')
                 axios.put('/user/actualizar', {
 
                     'id': this.id,
                     'id_rol': this.id_rol,
                     'registro': this.registro,
-                    'password': this.password,
+                    'password': this.password
                 }).then(function (response) {
                     me.cerrarModal();
                     me.listarUsuario(1, '', 'registro');
@@ -325,7 +320,7 @@
                                 break;
                             }
                             case 'actualizar': {
-                                console.log(data);
+                                console.log(123);
                                 this.modal = 1;
                                 this.tituloModal = 'Actualizar Usuario';
                                 this.tipoAccion = 2;

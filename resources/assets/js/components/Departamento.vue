@@ -34,6 +34,9 @@
                                 <th>Opciones</th>
                                 <th>Nombre</th>
                                 <th>Descripcion</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +61,17 @@
                                 </td>
                                 <td v-text="departamento.nombre"></td>
                                 <td v-text="departamento.descripcion"></td>
+                                <td v-text="departamento.latitud"></td>
+                                <td v-text="departamento.longitud"></td>
+                                <td>
+                                    <div v-if="departamento.condicion">
+                                        <span class="badge badge-success">Activo</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="badge badge-danger">Desactivado</span>
+                                    </div>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,10 +119,27 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Descripcion</label>
                                 <div class="col-md-9">
-                                    <input type="descripcion" v-model="descripcion" class="form-control"
-                                        placeholder="Descripcion del usuario">
+                                    <input type="text" v-model="descripcion" class="form-control"
+                                        placeholder="Descripcion del Departamento">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Latitud</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="latitud" class="form-control"
+                                        placeholder="Latitud">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="email-input">Longitud</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="longitud" class="form-control"
+                                        placeholder="Longitud">
+                                </div>
+                            </div>
+
                             <div v-show="errorDepartamento" class="form-group row div-error">
                                 <div class="text-center text-error">
                                     <div v-for="error in errorMostrarMsjDepartamento" :key="error" v-text="error">
@@ -142,6 +173,8 @@
                 id: '',
                 nombre: '',
                 descripcion: '',
+                latitud: '',
+                longitud: '',
                 arrayDepartamento: [],
                 modal: 0,
                 tituloModal: '',
@@ -218,8 +251,9 @@
 
                 axios.post('/departamento/registrar', {
                     'nombre': this.nombre,
-                    'descripcion': this.descripcion
-
+                    'descripcion': this.descripcion,
+                    'latitud': this.latitud,
+                    'longitud': this.longitud
                 }).then(function (response) {
                     me.cerrarModal();
                     me.listarDepartamento(1, '', 'nombre');
@@ -238,7 +272,9 @@
                     'id': this.id,
                     'nombre': this.nombre,
                     'descripcion': this.descripcion,
-
+                    'latitud': this.latitud,
+                    'longitud': this.longitud
+                
                 }).then(function (response) {
                     me.cerrarModal();
                     me.listarDepartamento(1, '', 'nombre');
@@ -255,6 +291,11 @@
                 if (!this.descripcion) this.errorMostrarMsjDepartamento.push(
                     "La descripcion del departamento no puede estar vacía.");
 
+                if (!this.latitud) this.errorMostrarMsjDepartamento.push(
+                    "La latitud del departamento no puede estar vacío.");
+                if (!this.longitud) this.errorMostrarMsjDepartamento.push(
+                    "La longitud del departamento no puede estar vacía.");
+
                 if (this.errorMostrarMsjDepartamento.length) this.errorDepartamento = 1;
 
                 return this.errorDepartamento;
@@ -264,6 +305,8 @@
                 this.tituloModal = '';
                 this.nombre = '';
                 this.descripcion = '';
+                this.latitud = '';
+                this.longitud = '';
                 this.errorDepartamento = 0;
             },
             abrirModal(modelo, accion, data = []) {
@@ -275,6 +318,8 @@
                                 this.tituloModal = 'Registrar Departamento';
                                 this.nombre = '';
                                 this.descripcion = '';
+                                this.latitud = '';
+                                this.longitud = '';
                                 this.tipoAccion = 1;
                                 break;
                             }
@@ -285,6 +330,8 @@
                                 this.tipoAccion = 2;
                                 this.nombre = data['nombre'];
                                 this.descripcion = data['descripcion'];
+                                this.latitud = data['latitud'];
+                                this.longitud = data['longitud'];
                                 this.id = data['id'];
                                 break;
                             }
