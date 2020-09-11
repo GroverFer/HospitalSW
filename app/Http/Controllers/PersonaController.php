@@ -82,17 +82,17 @@ class PersonaController extends Controller
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-        $especialidad = Persona::findOrFail($request->id);
-        $especialidad->condicion = '0';
-        $especialidad->save();
+        $persona = Persona::findOrFail($request->id);
+        $persona->condicion = '0';
+        $persona->save();
     }
 
     public function activar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-        $especialidad = Persona::findOrFail($request->id);
-        $especialidad->condicion = '1';
-        $especialidad->save();
+        $persona = Persona::findOrFail($request->id);
+        $persona->condicion = '1';
+        $persona->save();
     }
 
     public function selectPersona()
