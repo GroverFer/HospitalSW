@@ -19,12 +19,17 @@ class UserController extends Controller
 
         if ($buscar == '') {
             $usuarios = User::join('rol', 'rol.id', '=', 'users.id_rol')
-                ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
-                ->orderBy('users.id', 'desc')->paginate(6);
-        } else {
+            ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
+            ->orderBy('users.id', 'desc')->paginate(6);
+        }else if ($criterio == 'id_rol') {
+            $usuarios =User::join('rol', 'rol.id', '=', 'users.id_rol')
+            ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
+            ->where('rol.nombre', 'like', '%' . $buscar . '%')
+            ->orderBy('users.id', 'desc')->paginate(6); 
+        }else{
             $usuarios = User::join('rol', 'rol.id', '=', 'users.id_rol')
-                ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
-                ->where('users.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('users.id', 'desc')->paginate(6);
+            ->select('users.id', 'users.registro','users.password','users.condicion','users.id_rol','rol.nombre as rolnombre')
+            ->where('users.' . $criterio, 'like', '%' . $buscar . '%')->orderBy('users.id', 'desc')->paginate(6);
         }
 
         return [

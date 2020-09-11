@@ -56,4 +56,8 @@
         <h1>Contenido del menú 2</h1>
     </template>
 
+    <template v-if="menu==14">
+        <departamento_persona></departamento_persona>
+    </template>
+
     @endsection

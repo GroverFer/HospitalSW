@@ -20,6 +20,7 @@ class CreateDepartamentoPersonaTable extends Migration
             $table->foreign('id_persona')->references('id')->on('persona');
             $table->integer('id_departamento')->unsigned();
             $table->foreign('id_departamento')->references('id')->on('departamento');
+            $table->boolean('condicion')->default(1);  
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

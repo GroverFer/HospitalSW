@@ -9,7 +9,7 @@ class Departamento_persona extends Model
     protected $primaryKey = 'id';
     protected $table = 'departamento_persona';
     protected $fillable = [
-        'id', 'id_departamento', 'id_persona'
+        'id', 'id_departamento', 'id_persona','condicion'
     ];
     public $timestamps = false;
     public static function find($id)

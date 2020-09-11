@@ -24,6 +24,9 @@
                     <li @click="menu=3" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i>Departamentos</a>
                     </li>
+                    <li @click="menu=14" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-graduation"></i>Departamentos Personas</a>
+                    </li>
                     <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades</a>
                     </li>

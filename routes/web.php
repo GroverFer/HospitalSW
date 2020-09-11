@@ -43,6 +43,11 @@ Route::put('/departamento/desactivar', 'DepartamentoController@desactivar');
 Route::put('/departamento/activar', 'DepartamentoController@activar');
 Route::get('/departamento/selectDepartamento', 'DepartamentoController@selectDepartamento');
 
+Route::get('/departamento_persona', 'Departamento_personaController@index');
+Route::post('/departamento_persona/registrar', 'Departamento_personaController@store');
+Route::put('/departamento_persona/actualizar', 'Departamento_personaController@update');
+Route::put('/departamento_persona/desactivar', 'Departamento_personaController@desactivar');
+Route::put('/departamento_persona/activar', 'Departamento_personaController@activar');
 
 Route::get('/especialidad', 'EspecialidadController@index');
 Route::post('/especialidad/registrar', 'EspecialidadController@store');
