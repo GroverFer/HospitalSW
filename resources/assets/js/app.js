@@ -21,6 +21,7 @@ Vue.component('departamento', require('./components/Departamento.vue'));
 Vue.component('especialidad', require('./components/Especialidad.vue'));
 Vue.component('persona', require('./components/Persona.vue'));
 Vue.component('tipo_empleado', require('./components/Tipo_empleado.vue'));
+Vue.component('especilidad_persona', require('./components/Especialidad_persona'));
 
 const app = new Vue({
     el: '#app',

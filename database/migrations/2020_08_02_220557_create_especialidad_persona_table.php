@@ -16,6 +16,7 @@ class CreateEspecialidadPersonaTable extends Migration
     {
         Schema::create('especialidad_persona', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('condicion')->default(1);
             $table->integer('id_especialidad')->unsigned();
             $table->foreign('id_especialidad')->references('id')->on('especialidad');
             $table->integer('id_persona')->unsigned();
@@ -23,9 +24,9 @@ class CreateEspecialidadPersonaTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
-        DB::table('especialidad_persona')->insert(array('id_especialidad' => '1', 'id_persona' => '1'));
-        DB::table('especialidad_persona')->insert(array('id_especialidad' => '2', 'id_persona' => '1'));
-        DB::table('especialidad_persona')->insert(array('id_especialidad' => '2', 'id_persona' => '2'));
+        DB::table('especialidad_persona')->insert(array('condicion' => '1', 'id_especialidad' => '1', 'id_persona' => '1'));
+        DB::table('especialidad_persona')->insert(array('condicion' => '1', 'id_especialidad' => '2', 'id_persona' => '1'));
+        DB::table('especialidad_persona')->insert(array('condicion' => '1', 'id_especialidad' => '2', 'id_persona' => '2'));
     }
 
     /**

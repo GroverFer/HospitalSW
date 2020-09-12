@@ -26,6 +26,8 @@
                     </li>
                     <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades</a>
+                    </li><li @click="menu=13" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades Personas</a>
                     </li>
                 </ul>
             </li>
