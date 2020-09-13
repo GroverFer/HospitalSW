@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/main', function () {
     return view('contenido/contenido');
-});
+})->name('main');
 
 Route::get('/rol', 'RolController@index');
 Route::post('/rol/registrar', 'RolController@store');
@@ -68,3 +68,9 @@ Route::post('/especialidad_persona/registrar', 'Especialidad_personaController@s
 Route::put('/especialidad_persona/actualizar', 'Especialidad_personaController@update');
 Route::put('/especialidad_persona/desactivar', 'Especialidad_personaController@desactivar');
 Route::put('/especialidad_persona/activar', 'Especialidad_personaController@activar');
+
+Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+
+
+Route::get('/home', 'HomeController@index')->name('home');
