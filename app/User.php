@@ -20,13 +20,16 @@ class User extends Authenticatable
         'id', 'registro', 'password', 'condicion', 'id_rol'
     ];
     public $timestamps = false;
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
     public static function find($id)
     {
-        return static::where('id',compact('id'))->first();
+        return static::where('id', compact('id'))->first();
     }
     public function rol()
     {
-        return $this->belongsTo('App\Rol','id_rol');
+        return $this->belongsTo('App\Rol', 'id_rol');
     }
     public function persona()
     {

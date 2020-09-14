@@ -18,11 +18,9 @@ class LoginController extends Controller
         $this->validateLogin($request);
         $registro = $request->registro;
         $password = $request->password;
-        dd(Auth::attempt(['registro' => $registro, 'password' => $password, 'condicion' => 1]));
         if (Auth::attempt(['registro' => $registro, 'password' => $password, 'condicion' => 1])) {
             return redirect()->route('main');
         }
-
         return back()
             ->withErrors(['registro' => trans('auth.failed')])
             ->withInput(request(['registro']));

@@ -1,5 +1,8 @@
     @extends('principal')
     @section('contenido')
+
+    @if(Auth::check())
+    @if (Auth::user()->id_rol == 1)
     <template v-if="menu==0">
         <example-component></example-component>
     </template>
@@ -59,5 +62,13 @@
     <template v-if="menu==14">
         <departamento_persona></departamento_persona>
     </template>
+    @elseif (Auth::user()->id_rol == 2)
+    <template v-if="menu==8">
+        <rol></rol>
+    </template>
+    @else
+    @endif
+    @endif
+
 
     @endsection
