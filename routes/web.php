@@ -76,6 +76,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/especialidad_persona/actualizar', 'Especialidad_personaController@update');
         Route::put('/especialidad_persona/desactivar', 'Especialidad_personaController@desactivar');
         Route::put('/especialidad_persona/activar', 'Especialidad_personaController@activar');
+
+        Route::get('/horario', 'HorarioController@index');
+        Route::post('/horario/registrar', 'HorarioController@store');
+        Route::put('/horario/actualizar', 'HorarioController@update');
+        Route::put('/horario/desactivar', 'HorarioController@desactivar');
+        Route::put('/horario/activar', 'HorarioController@activar');
     });
 
     Route::group(['middleware' => ['Usuario']], function () {

@@ -39,7 +39,7 @@
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calendar"></i>Gestionar Permisos</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=5" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-calendar"></i>CU</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Horario</a>
                     </li>
                     <li @click="menu=6" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-calendar"></i>CU</a>

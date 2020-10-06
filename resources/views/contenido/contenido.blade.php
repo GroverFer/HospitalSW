@@ -24,7 +24,7 @@
     </template>
 
     <template v-if="menu==5">
-        <h1>Contenido del menú 5</h1>
+        <horario></horario>
     </template>
 
     <template v-if="menu==6">
