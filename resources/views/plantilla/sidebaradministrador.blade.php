@@ -42,7 +42,7 @@
                         <a class="nav-link" href="#"><i class="icon-calendar"></i>Horario</a>
                     </li>
                     <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-calendar"></i>CU</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Jornada</a>
                     </li>
                 </ul>
             </li>

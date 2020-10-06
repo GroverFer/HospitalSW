@@ -24,6 +24,7 @@ Vue.component('persona', require('./components/Persona.vue'));
 Vue.component('tipo_empleado', require('./components/Tipo_empleado.vue'));
 Vue.component('especilidad_persona', require('./components/Especialidad_persona'));
 Vue.component('horario', require('./components/Horario'));
+Vue.component('jornada', require('./components/Jornada'));
 
 const app = new Vue({
     el: '#app',

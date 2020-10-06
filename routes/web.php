@@ -82,6 +82,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/horario/actualizar', 'HorarioController@update');
         Route::put('/horario/desactivar', 'HorarioController@desactivar');
         Route::put('/horario/activar', 'HorarioController@activar');
+
+        Route::get('/jornada', 'JornadaController@index');
+        Route::post('/jornada/registrar', 'JornadaController@store');
+        Route::put('/jornada/actualizar', 'JornadaController@update');
     });
 
     Route::group(['middleware' => ['Usuario']], function () {
