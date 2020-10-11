@@ -7752,7 +7752,15 @@ base-chart.chart {
 
 .progress-sm {
   height: 8px; }
+  td{
+    text-align:center;
+    vertical-align:middle;
+   }
 
+   th{
+    text-align:center;
+    vertical-align:middle;
+   }
 .progress-white {
   background-color: rgba(255, 255, 255, 0.2) !important; }
   .progress-white .progress-bar {

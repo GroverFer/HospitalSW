@@ -22,8 +22,7 @@ class CreateJornadaTable extends Migration
             $table->date('fecha_salida');
             $table->integer('id_persona')->unsigned();
             $table->foreign('id_persona')->references('id')->on('persona');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
     }
 

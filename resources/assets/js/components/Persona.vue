@@ -42,8 +42,8 @@
                                 <th>Telefono</th>
                                 <th>Año de Experiencia</th>
                                 <th>Tipo de sangre</th>
-                                <th>Email</th>
                                 <th>Foto</th>
+                                <th>Email</th>
                                 <th>Tipo de Empleado</th>
                                 <th>Usuario</th>
                                 <th>Estado</th>
@@ -55,7 +55,7 @@
                                     <button type="button" @click="abrirModal('persona','actualizar',persona)"
                                         class="btn btn-warning btn-sm">
                                         <i class="icon-pencil"></i>
-                                    </button> &nbsp;
+                                    </button> 
                                     <template v-if="persona.condicion">
                                         <button type="button" class="btn btn-danger btn-sm"
                                             @click="desactivarPersona(persona.id)">
@@ -77,8 +77,11 @@
                                 <td v-text="persona.telefono"></td>
                                 <td v-text="persona.año_experiencia"></td>
                                 <td v-text="persona.tipo_sangre"></td>
+                                <label v-for="img in imagenes" v-bind:key="img">
+                                    <td v-if="img.includes(persona.foto)"><img :src="img" class="center" width="60" height="60" alt="">
+                                    </td>
+                                    </label>
                                 <td v-text="persona.email"></td>
-                                <td v-text="persona.foto"></td>
                                 <td v-text="persona.cargo"></td>
                                 <td v-text="persona.registro"></td>
                                 <td>
@@ -205,10 +208,10 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Foto</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="foto" class="form-control"
-                                        placeholder="Foto del colaborador">
-                                </div>
+                                <form @submit.prevent="subirImagen" enctype="multipart/form-data">
+                                <input @change="clickImagen($event)" type="file" accept="image/*">
+                                <input type="submit" value="Subir Imagen">
+                                </form>
                             </div>
 
                             <div class="form-group row">
@@ -219,8 +222,7 @@
                                         <option v-for="tipo_empleado in arrayTipo_empleado" :key="tipo_empleado.id"
                                             :value="tipo_empleado.id" v-text="tipo_empleado.cargo"></option>
                                     </select>
-                                </div>
-                            </div>
+                                </div>                            </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="email-input">Usuario</label>
@@ -260,6 +262,8 @@
 </template>
 
 <script>
+import {storage} from '../firebase'
+const ref = storage.ref()
     export default {
         // props: ['ruta'],
         data() {
@@ -275,11 +279,17 @@
                 tipo_sangre: '',
                 email: '',
                 foto: '',
+                foto_nombre: '',
                 id_tipoempleado: '',
                 id_usuario: '',
                 arrayPersona: [],
                 arrayTipo_empleado: [],
                 arrayUsuario: [],
+
+                imagenes: [],
+                imagen: null,
+                imagendesc: false,
+
                 modal: 0,
                 tituloModal: '',
                 tipoAccion: 0,
@@ -328,6 +338,33 @@
             }
         },
         methods: {
+            clickImagen(e){
+                this.imagen=e.target.files[0]
+                console.log(this.imagen)
+            },
+            subirImagen(){
+                const refImg = ref.child('imagenes/'+this.imagen.name)
+                this.foto_nombre=this.imagen.name
+                const metadata = {contentType: 'img/jpeg'}
+                refImg.put(this.imagen,metadata)
+                .then(e => console.log(e))
+            },
+            cargarImagenes(){
+                ref.child('/imagenes')
+                .listAll()
+                .then((res)=>{
+                    console.log(res)
+                    res.items.map( (item)=> {
+                        ref.child(item.location.path_)
+                        .getDownloadURL()
+                        .then((url)=>{
+                            this.imagendesc=true,
+                            this.imagenes.push(url),
+                            console.log(this.imagenes)
+                        })
+                    })
+                })
+            },
             listarPersona(page, buscar, criterio) {
                 let me = this;
                 var url = '/persona?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
@@ -388,7 +425,7 @@
                     'año_experiencia': this.año_experiencia,
                     'tipo_sangre': this.tipo_sangre,
                     'email': this.email,
-                    'foto': this.foto,
+                    'foto': this.foto_nombre,
                     'id_tipoempleado': this.id_tipoempleado,
                     'id_usuario': this.id_usuario,
 
@@ -417,7 +454,7 @@
                     'año_experiencia': this.año_experiencia,
                     'tipo_sangre': this.tipo_sangre,
                     'email': this.email,
-                    'foto': this.foto,
+                    'foto': this.foto_nombre,
                     'id_tipoempleado': this.id_tipoempleado,
                     'id_usuario': this.id_usuario,
                 }).then(function (response) {
@@ -446,8 +483,8 @@
                 if (this.tipo_sangre == 0) this.errorMostrarMsjPersona.push("Seleccione un Tipo de sangre.");
                 if (!this.email) this.errorMostrarMsjPersona.push(
                     "El correo no puede estar vacío.");
-                if (!this.foto) this.errorMostrarMsjPersona.push(
-                    "La foto no puede estar vacío.");
+                if (!this.foto_nombre) this.errorMostrarMsjPersona.push(
+                    "Seleccione una foto.");    
                 if (this.id_tipoempleado == 0) this.errorMostrarMsjPersona.push("Seleccione un Tipo de Empleado.");
                 if (this.id_usuario == 0) this.errorMostrarMsjPersona.push("Seleccione un Usuario.");
 
@@ -469,6 +506,7 @@
                 this.tipo_sangre = '',
                 this.email = '',
                 this.foto = '',
+                this.imagen='',
                 this.id_tipoempleado = 0;
                 this.id_usuario = 0;
 
@@ -494,6 +532,8 @@
                                 this.tipo_sangre = '',
                                 this.email = '',
                                 this.foto = '',
+                                this.foto_nombre='',
+                                this.imagen='',
                                 this.id_tipoempleado = 0;
                                 this.id_usuario = 0;
 
@@ -516,6 +556,8 @@
                                 this.tipo_sangre = data['tipo_sangre'],
                                 this.email = data['email'],
                                 this.foto = data['foto'],
+                                this.foto_nombre=data['foto'],
+                                this.imagen='',
                                 this.id_tipoempleado = data['id_tipoempleado'];
                                 this.id_usuario = data['id_usuario'];
 
@@ -611,6 +653,7 @@
         },
         mounted() {
             this.listarPersona(1, this.buscar, this.criterio);
+            this.cargarImagenes();
         }
     }
 </script>

@@ -19,8 +19,7 @@ class CreateTipoEmpleadoTable extends Migration
             $table->string('cargo', 30)->unique();;
             $table->string('descripcion', 100)->nullable();
             $table->boolean('condicion')->default(1);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
         DB::table('tipo_empleado')->insert(array('cargo' => 'Medico', 'descripcion' => 'Doctores', 'condicion' => '1'));
         DB::table('tipo_empleado')->insert(array('cargo' => 'Enfermera', 'descripcion' => 'Asistentes de los Doctores', 'condicion' => '1'));

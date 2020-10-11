@@ -23,8 +23,7 @@ class CreateHorarioTable extends Migration
             $table->boolean('condicion')->default(1);
             $table->integer('id_persona')->unsigned();
             $table->foreign('id_persona')->references('id')->on('persona');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
     }
 

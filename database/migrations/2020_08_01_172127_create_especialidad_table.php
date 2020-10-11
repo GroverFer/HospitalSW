@@ -19,8 +19,7 @@ class CreateEspecialidadTable extends Migration
             $table->string('nombre',50)->unique();
             $table->string('descripcion')->nullable();
             $table->boolean('condicion')->default(1);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
         DB::table('especialidad')->insert(array('nombre' => 'Cardiología', 'descripcion' => 'Estudio, diagnóstico y tratamiento de las enfermedades del corazón y del aparato circulatorio del hospital', 'condicion' => '1'));
         DB::table('especialidad')->insert(array('nombre' => 'Endocrinología', 'descripcion' => 'estudia el sistema endocrino y las enfermedades provocadas por un funcionamiento inadecuado del mismo', 'condicion' => '1'));

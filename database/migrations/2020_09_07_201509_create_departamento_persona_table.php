@@ -21,8 +21,7 @@ class CreateDepartamentoPersonaTable extends Migration
             $table->integer('id_departamento')->unsigned();
             $table->foreign('id_departamento')->references('id')->on('departamento');
             $table->boolean('condicion')->default(1);  
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
         DB::table('departamento_persona')->insert(array('id_persona' => '1', 'id_departamento' => '1'));
         DB::table('departamento_persona')->insert(array('id_persona' => '1', 'id_departamento' => '2'));

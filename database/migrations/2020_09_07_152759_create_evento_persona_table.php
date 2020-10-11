@@ -20,8 +20,7 @@ class CreateEventoPersonaTable extends Migration
             $table->foreign('id_persona')->references('id')->on('persona');
             $table->integer('id_evento')->unsigned();
             $table->foreign('id_evento')->references('id')->on('evento');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
     }
 

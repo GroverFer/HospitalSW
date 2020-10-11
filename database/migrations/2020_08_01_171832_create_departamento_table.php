@@ -21,8 +21,6 @@ class CreateDepartamentoTable extends Migration
             $table->string('latitud',50)->required();
             $table->string('longitud',50)->required();
             $table->boolean('condicion')->default(1);          
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
         DB::table('departamento')->insert(array('nombre' => 'Bioquimica', 'descripcion' => 'Estudia la composición química de los seres vivos, especialmente las proteínas...','latitud' => '0000','longitud' => '0000','condicion' => '1'));
         DB::table('departamento')->insert(array('nombre' => 'Fisiologia', 'descripcion' => 'Estudia las funciones de los seres vivos...','latitud' => '0000','longitud' => '0000','condicion' => '1'));

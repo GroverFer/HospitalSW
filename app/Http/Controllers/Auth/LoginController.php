@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -40,4 +41,20 @@ class LoginController extends Controller
         $request->session()->invalidate();
         return redirect('/');
     }
+
+    public function login2(Request $request){
+        $input = $request->only('registro','password');
+        $registro = $request->registro;
+        if (Auth::attempt($input)) {
+            $cadena=User::join('persona','persona.id_usuario','users.id')->where('registro','=',$registro)
+            ->get();    
+            return response()->json([
+                $cadena
+            ],401);
+        }
+        return  response()->json([
+
+        ],401);
+    }
+
 }

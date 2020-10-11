@@ -31,8 +31,7 @@ class CreatePersonaTable extends Migration
             $table->foreign('id_tipoempleado')->references('id')->on('tipo_empleado');
             $table->integer('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
         DB::table('persona')->insert(array('nombre' => 'Jose Mishael','apellido' => 'Chile Laime', 'ci' => '11374590'
         ,'fecha_nac' => '1998-09-07', 'genero' => 'M','telefono' => '71366663', 'año_experiencia' => '3','tipo_sangre' => 'O+'

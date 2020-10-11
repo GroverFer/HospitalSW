@@ -20,8 +20,6 @@ class CreateRolTable extends Migration
             $table->string('nombre', 30)->unique();
             $table->string('descripcion', 100)->nullable();
             $table->boolean('condicion')->default(1);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
         DB::table('rol')->insert(array('nombre' => 'Administrador', 'descripcion' => 'Administradores del hospital'));
         DB::table('rol')->insert(array('nombre' => 'Usuario', 'descripcion' => 'Empleados del hospital'));

@@ -21,8 +21,7 @@ class CreateEspecialidadPersonaTable extends Migration
             $table->foreign('id_especialidad')->references('id')->on('especialidad');
             $table->integer('id_persona')->unsigned();
             $table->foreign('id_persona')->references('id')->on('persona');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
         });
         DB::table('especialidad_persona')->insert(array('condicion' => '1', 'id_especialidad' => '1', 'id_persona' => '1'));
         DB::table('especialidad_persona')->insert(array('condicion' => '1', 'id_especialidad' => '2', 'id_persona' => '1'));
