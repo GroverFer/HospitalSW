@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Departamento_persona;
+use App\Departamento;
 
 class LoginController extends Controller
 {
@@ -46,7 +48,10 @@ class LoginController extends Controller
         $input = $request->only('registro','password');
         $registro = $request->registro;
         if (Auth::attempt($input)) {
-            $cadena=User::join('persona','persona.id_usuario','users.id')->where('registro','=',$registro)
+            $cadena=User::join('persona','persona.id_usuario','users.id')
+            ->join('departamento_persona','departamento_persona.id_persona','persona.id')
+            ->join('departamento','departamento.id','departamento_persona.id_departamento')
+            ->where('registro','=',$registro)
             ->get();    
             return response()->json([
                 $cadena

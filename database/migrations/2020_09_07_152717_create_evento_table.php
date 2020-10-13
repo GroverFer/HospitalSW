@@ -25,8 +25,9 @@ class CreateEventoTable extends Migration
             $table->string('latitud',50)->required();
             $table->string('longitud',50)->required();
             $table->boolean('condicion')->default(1);   
-
         });
+        DB::table('evento')->insert(array('nombre' => 'Vacunacion contra la Sarampion', 'descripcion' => 'Vacunacion en el octavo anillo', 'hora_entrada' => '08:00:01','hora_salida' => '16:00:01','fecha_inicio' => '2020/10/10','fecha_fin' => '2020/10/12','latitud' => '-17.735443','longitud' => '-63.174154','condicion'=>'0'));
+        DB::table('evento')->insert(array('nombre' => 'Campaña sobre el Covid', 'descripcion' => 'Esta campaña se hará en el primer anillo', 'hora_entrada' => '08:00:01','hora_salida' => '16:00:01','fecha_inicio' => '2020/10/13','fecha_fin' => '2020/10/15','latitud' => '-17.774831','longitud' => '-63.182238','condicion'=>'1'));
     }
 
     /**

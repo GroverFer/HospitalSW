@@ -24,8 +24,16 @@ class CreateDepartamentoPersonaTable extends Migration
 
         });
         DB::table('departamento_persona')->insert(array('id_persona' => '1', 'id_departamento' => '1'));
-        DB::table('departamento_persona')->insert(array('id_persona' => '1', 'id_departamento' => '2'));
         DB::table('departamento_persona')->insert(array('id_persona' => '2', 'id_departamento' => '2'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '3', 'id_departamento' => '2'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '4', 'id_departamento' => '3'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '5', 'id_departamento' => '3'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '6', 'id_departamento' => '4'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '7', 'id_departamento' => '5'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '8', 'id_departamento' => '6'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '9', 'id_departamento' => '7'));
+        DB::table('departamento_persona')->insert(array('id_persona' => '10', 'id_departamento' => '8'));
+
     }
 
     /**

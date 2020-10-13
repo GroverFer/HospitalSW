@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Jornada;
+use Carbon\Carbon;
 
 class JornadaController extends Controller
 {
@@ -81,4 +82,31 @@ class JornadaController extends Controller
     //     $jornada->condicion = '1';
     //     $jornada->save();
     // }
+
+    public function ingresar(Request $request){
+        $a=$request->input('body');
+        $b=json_decode($a);
+        if($b->{'mensajeFoto'}=="Hay similitud"){
+            if(($b->{'mensajeLongitud'}=="Aceptado") && ($b->{'mensajeLatitud'}=="Aceptado")){
+                $idpersona=$b->{'idpersona'};
+                $date=Carbon::now();
+                $hora=$date->toTimeString();
+                $fecha=$date->toDateString();
+                $jornada = new Jornada();
+                $jornada->hora_llegada = $hora;
+                $jornada->fecha_llegada = $fecha;
+                $jornada->id_persona = $idpersona;
+                $jornada->save();
+                return "registrado con exito";
+            }else{
+                return "Usted no se encuentra dentro del rango establecido";
+            }
+        }else{
+            return "Saquese otra foto porfavor";
+        }
+    }
+
+    public function salir(Request $request){
+        return "Todavia no cumple totalmente su jornada";
+    }
 }
