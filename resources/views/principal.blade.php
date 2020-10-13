@@ -90,8 +90,8 @@
         </div>
     </div>
     <footer class="app-footer">
-        <span><a href="http://www.incanatoit.com/">Grupo N SW1</a> &copy; 2020</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.incanatoit.com/">Grupo N SW1</a></span>
+        <span><a href="https://drive.google.com/file/d/1ixxAfNB1JpqZsXKS-Vp2ADEVnm98kmIB/view?usp=sharing">Grupo N SW1</a> &copy; 2020</span>
+        <span class="ml-auto">Desarrollado por <a href="https://drive.google.com/file/d/1ixxAfNB1JpqZsXKS-Vp2ADEVnm98kmIB/view?usp=sharing">Grupo N SW1</a></span>
     </footer>
 
 
