@@ -25,6 +25,10 @@ Vue.component('tipo_empleado', require('./components/Tipo_empleado.vue'));
 Vue.component('especilidad_persona', require('./components/Especialidad_persona'));
 Vue.component('horario', require('./components/Horario'));
 Vue.component('jornada', require('./components/Jornada'));
+Vue.component('evento', require('./components/Evento'));
+Vue.component('evento_persona', require('./components/Evento_persona'));
+Vue.component('tipo_permiso', require('./components/Tipo_permiso'));
+
 
 const app = new Vue({
     el: '#app',

@@ -8,52 +8,61 @@
                 Mantenimiento
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Gestionar Personal</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Personal</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=1" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-people"></i>Empleados</a>
+                        <a class="nav-link" href="#"><i class="icon-people"></i>Gestionar Personal</a>
                     </li>
                     <li @click="menu=2" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Tipos de Empleados</a>
+                        <a class="nav-link" href="#"><i class="icon-user-following"></i>Gestionar Tipos de Empleados</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Gestionar Area</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Area</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=3" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-notebook"></i>Departamentos</a>
+                        <a class="nav-link" href="#"><i class="icon-notebook"></i>Gestionar Departamentos</a>
                     </li>
                     <li @click="menu=14" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-graduation"></i>Departamentos Personas</a>
+                        <a class="nav-link" href="#"><i class="icon-graduation"></i>Gestionar Departamentos Personas</a>
                     </li>
                     <li @click="menu=4" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades</a>
+                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Gestionar Especialidades</a>
                     </li>
                     <li @click="menu=13" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Especialidades Personas</a>
+                        <a class="nav-link" href="#"><i class="icon-trophy"></i>Gestionar Especialidades Personas</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calendar"></i>Gestionar Permisos</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-calendar"></i>Permisos</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=5" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Horario</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Horario</a>
                     </li>
                     <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Jornada</a>
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Jornada</a>
+                    </li>
+                    <li @click="menu=12" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Evento</a>
+                    </li>
+                    <li @click="menu=11" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Evento Persona</a>
+                    </li>
+                    <li @click="menu=10" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Tipo Permiso</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Gestionar Acceso</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i>Acceso</a>
                 <ul class="nav-dropdown-items">
                     <li @click="menu=7" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-user"></i>Usuarios</a>
+                        <a class="nav-link" href="#"><i class="icon-user"></i>Gestionar Usuarios</a>
                     </li>
                     <li @click="menu=8" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-layers"></i>Roles</a>
+                        <a class="nav-link" href="#"><i class="icon-layers"></i>Gestionar Roles</a>
                     </li>
                 </ul>
             </li>

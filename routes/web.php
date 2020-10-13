@@ -86,6 +86,26 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/jornada', 'JornadaController@index');
         Route::post('/jornada/registrar', 'JornadaController@store');
         Route::put('/jornada/actualizar', 'JornadaController@update');
+
+        Route::get('/evento', 'EventoController@index');
+        Route::post('/evento/registrar', 'EventoController@store');
+        Route::put('/evento/actualizar', 'EventoController@update');
+        Route::put('/evento/desactivar', 'EventoController@desactivar');
+        Route::put('/evento/activar', 'EventoController@activar');
+        Route::get('/evento/selectEvento', 'EventoController@selectEvento');
+
+        Route::get('/evento_persona', 'Evento_personaController@index');
+        Route::post('/evento_persona/registrar', 'Evento_personaController@store');
+        Route::put('/evento_persona/actualizar', 'Evento_personaController@update');
+        Route::put('/evento_persona/desactivar', 'Evento_personaController@desactivar');
+        Route::put('/evento_persona/activar', 'Evento_personaController@activar');
+
+        Route::get('/tipo_permiso', 'Tipo_permisoController@index');
+        Route::post('/tipo_permiso/registrar', 'Tipo_permisoController@store');
+        Route::put('/tipo_permiso/actualizar', 'Tipo_permisoController@update');
+        Route::put('/tipo_permiso/desactivar', 'Tipo_permisoController@desactivar');
+        Route::put('/tipo_permiso/activar', 'Tipo_permisoController@activar');
+        Route::get('/tipo_permiso/selectTipo_permiso', 'Tipo_permisoController@selectTipo_permiso');
     });
 
     Route::group(['middleware' => ['Usuario']], function () {

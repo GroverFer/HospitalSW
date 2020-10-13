@@ -44,15 +44,15 @@
     </template>
 
     <template v-if="menu==10">
-        <h1>Contenido del menú 10</h1>
+        <tipo_permiso></tipo_permiso>
     </template>
 
     <template v-if="menu==11">
-        <h1>Contenido del menú 11</h1>
+        <evento_persona></evento_persona>
     </template>
 
     <template v-if="menu==12">
-        <h1>Contenido del menú 12</h1>
+        <evento></evento>
     </template>
 
     <template v-if="menu==13">
