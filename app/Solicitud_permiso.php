@@ -16,7 +16,7 @@ class Solicitud_permiso extends Model
     {
         return static::where('id',compact('id'))->first();
     }
-    public function departamento()
+    public function tipo_permiso()
     {
         return $this->belongsTo('App\Tipo_permiso','id_tipopermiso');
     }

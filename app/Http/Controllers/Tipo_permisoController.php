@@ -38,37 +38,37 @@ class Tipo_permisoController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
 
-        $departamento = new Tipo_permiso();
-        $departamento->nombre = $request->nombre;
-        $departamento->descripcion = $request->descripcion;
-        $departamento->condicion = '1';
-        $departamento->save();
+        $tipo_permisos = new Tipo_permiso();
+        $tipo_permisos->nombre = $request->nombre;
+        $tipo_permisos->descripcion = $request->descripcion;
+        $tipo_permisos->condicion = '1';
+        $tipo_permisos->save();
     }
 
     public function update(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
 
-        $departamento = Tipo_permiso::findOrFail($request->id);
-        $departamento->nombre = $request->nombre;
-        $departamento->descripcion = $request->descripcion;
-        $departamento->save();
+        $tipo_permisos = Tipo_permiso::findOrFail($request->id);
+        $tipo_permisos->nombre = $request->nombre;
+        $tipo_permisos->descripcion = $request->descripcion;
+        $tipo_permisos->save();
     }
 
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-        $departamento = Tipo_permiso::findOrFail($request->id);
-        $departamento->condicion = '0';
-        $departamento->save();
+        $tipo_permisos = Tipo_permiso::findOrFail($request->id);
+        $tipo_permisos->condicion = '0';
+        $tipo_permisos->save();
     }
 
     public function activar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-        $departamento = Tipo_permiso::findOrFail($request->id);
-        $departamento->condicion = '1';
-        $departamento->save();
+        $tipo_permisos = Tipo_permiso::findOrFail($request->id);
+        $tipo_permisos->condicion = '1';
+        $tipo_permisos->save();
     }
 
     public function selectTipo_permiso()

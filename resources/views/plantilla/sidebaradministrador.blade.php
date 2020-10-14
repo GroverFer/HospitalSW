@@ -53,6 +53,12 @@
                     <li @click="menu=10" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Tipo Permiso</a>
                     </li>
+                    <li @click="menu=9" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Solicitud Permiso</a>
+                    </li>
+                    <li @click="menu=15" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-calendar"></i>Gestionar Falla</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">

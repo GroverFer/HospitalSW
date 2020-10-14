@@ -18,19 +18,25 @@ class Solicitud_permisoController extends Controller
         if ($buscar == '') {
             $solicitud_permisos = Solicitud_permiso::join('tipo_permiso', 'tipo_permiso.id', '=', 'solicitud_permiso.id_tipopermiso')
                 ->join('persona', 'persona.id', '=', 'solicitud_permiso.id_persona')
-                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo',  'tipo_permiso.tipo as tipoTipo_permiso', 'persona.nombre as nombrePersona')
+                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo',  'tipo_permiso.nombre as tipoTipo_permiso', 'persona.nombre as nombrePersona')
                 ->orderBy('solicitud_permiso.id', 'desc')->paginate(6);
         } elseif ($criterio == 'id_persona') {
             $solicitud_permisos = Solicitud_permiso::join('tipo_permiso', 'tipo_permiso.id', '=', 'solicitud_permiso.id_tipopermiso')
                 ->join('persona', 'persona.id', '=', 'solicitud_permiso.id_persona')
-                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo', 'tipo_permiso.tipo as tipoTipo_permiso', 'persona.nombre as nombrePersona')
+                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo', 'tipo_permiso.nombre as tipoTipo_permiso', 'persona.nombre as nombrePersona')
                 ->where('persona.nombre', 'like', '%' . $buscar . '%')
                 ->orderBy('solicitud_permiso.id', 'desc')->paginate(6);
         } elseif ($criterio == 'id_tipopermiso') {
             $solicitud_permisos = Solicitud_permiso::join('tipo_permiso', 'tipo_permiso.id', '=', 'solicitud_permiso.id_tipopermiso')
                 ->join('persona', 'persona.id', '=', 'solicitud_permiso.id_persona')
-                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo', 'tipo_permiso.tipo as tipoTipo_permiso', 'persona.nombre as nombrePersona')
-                ->where('solicitud_permiso.nombre', 'like', '%' . $buscar . '%')
+                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo', 'tipo_permiso.nombre as tipoTipo_permiso', 'persona.nombre as nombrePersona')
+                ->where('tipo_permiso.nombre', 'like', '%' . $buscar . '%')
+                ->orderBy('solicitud_permiso.id', 'desc')->paginate(6);
+        }else{
+            $solicitud_permisos = Solicitud_permiso::join('tipo_permiso', 'tipo_permiso.id', '=', 'solicitud_permiso.id_tipopermiso')
+                ->join('persona', 'persona.id', '=', 'solicitud_permiso.id_persona')
+                ->select('solicitud_permiso.id', 'solicitud_permiso.id_tipopermiso', 'solicitud_permiso.id_persona', 'solicitud_permiso.fecha_inicio', 'solicitud_permiso.fecha_fin', 'solicitud_permiso.motivo', 'tipo_permiso.nombre as tipoTipo_permiso', 'persona.nombre as nombrePersona')
+                ->where($criterio, 'like', '%' . $buscar . '%')
                 ->orderBy('solicitud_permiso.id', 'desc')->paginate(6);
         }
 

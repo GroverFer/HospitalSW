@@ -106,10 +106,10 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="email-input">Tipo</label>
+                                <label class="col-md-3 form-control-label" for="email-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" class="form-control"
-                                        placeholder="Nombre tipo del permiso">
+                                        placeholder="Nombre del permiso">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -244,12 +244,12 @@
 
                 let me = this;
 
-                axios.put('/departamento/actualizar', {
+                axios.put('/tipo_permiso/actualizar', {
                     'id': this.id,
                     'nombre': this.nombre,
                     'descripcion': this.descripcion,
-                   
-                
+
+
                 }).then(function (response) {
                     me.cerrarModal();
                     me.listarTipo_permiso(1, '', 'nombre');
@@ -262,9 +262,9 @@
                 this.errorMostrarMsjTipo_permiso = [];
 
                 if (!this.nombre) this.errorMostrarMsjTipo_permiso.push(
-                    "El nombre no puede estar vacío.");
+                    "El nombre del permiso no puede estar vacío.");
                 if (!this.descripcion) this.errorMostrarMsjTipo_permiso.push(
-                    "La descripcion del tipo no puede estar vacía.");
+                    "La descripcion no puede estar vacía.");
 
                 if (this.errorMostrarMsjTipo_permiso.length) this.errorTipo_permiso = 1;
 
@@ -273,7 +273,7 @@
             cerrarModal() {
                 this.modal = 0;
                 this.tituloModal = '';
-                this.nombre = '';
+                this.tipo = '';
                 this.descripcion = '';
                 this.latitud = '';
                 this.longitud = '';
@@ -330,7 +330,7 @@
                                     id: id
                                 })
                                 .then(function (response) {
-                                    me.listarTipo_permiso(1, '', 'tipo');
+                                    me.listarTipo_permiso(1, '', 'nombre');
                                     swalWithBootstrapButtons.fire(
                                         "Desactivado!",
                                         "El Tipo de permiso ha sido desactivado con exito.",
@@ -371,7 +371,7 @@
                                     id: id
                                 })
                                 .then(function (response) {
-                                    me.listarTipo_permiso(1, '', 'tipo');
+                                    me.listarTipo_permiso(1, '', 'nombre');
                                     swalWithBootstrapButtons.fire(
                                         "Activado!",
                                         "El Tipo de permiso ha sido activado con exito.",

@@ -44,19 +44,19 @@ class FallaController extends Controller
     {
         if (!$request->ajax()) return redirect('/');
 
-        $jornada = new Falla();
-        $jornada->fecha_hora = $request->fecha_hora;
-        $jornada->id_persona = $request->id_persona;
-        $jornada->save();
+        $falla = new Falla();
+        $falla->fecha_hora = $request->fecha_hora;
+        $falla->id_persona = $request->id_persona;
+        $falla->save();
     }
 
     public function update(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
 
-        $jornada = Falla::findOrFail($request->id);
-        $jornada->fecha_hora = $request->fecha_hora;
-        $jornada->id_persona = $request->id_persona;
-        $jornada->save();
+        $falla = Falla::findOrFail($request->id);
+        $falla->fecha_hora = $request->fecha_hora;
+        $falla->id_persona = $request->id_persona;
+        $falla->save();
     }
 }

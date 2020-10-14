@@ -40,7 +40,7 @@
     </template>
 
     <template v-if="menu==9">
-        <h1>Contenido del menú 9</h1>
+        <solicitud_permiso></solicitud_permiso>
     </template>
 
     <template v-if="menu==10">
@@ -62,6 +62,11 @@
     <template v-if="menu==14">
         <departamento_persona></departamento_persona>
     </template>
+
+    <template v-if="menu==15">
+        <falla></falla>
+    </template>
+    
     @elseif (Auth::user()->id_rol == 2)
     <template v-if="menu==8">
         <rol></rol>

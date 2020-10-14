@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i> Falla
-                    <button type="button" @click="abrirModal('jornada','registrar')" class="btn btn-secondary">
+                    <button type="button" @click="abrirModal('falla','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
@@ -249,9 +249,6 @@
                 axios.post('/falla/registrar', {
                     'id_persona': this.id_persona,
                     'fecha_hora': this.fecha_hora,
-                    'hora_salida': this.hora_salida,
-                    'fecha_llegada': this.fecha_llegada,
-                    'fecha_salida': this.fecha_salida,
 
                 }).then(function (response) {
                     me.cerrarModal();
@@ -309,7 +306,6 @@
                                 break;
                             }
                             case 'actualizar': {
-                                console.log(123);
                                 this.modal = 1;
                                 this.tituloModal = 'Actualizar Falta';
                                 this.tipoAccion = 2;

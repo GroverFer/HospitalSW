@@ -9,7 +9,7 @@ class Tipo_permiso extends Model
     protected $primaryKey = 'id';
     protected $table = 'tipo_permiso';
     protected $fillable = [
-        'id','tipo', 'descripcion','condicion'
+        'id','nombre', 'descripcion','condicion'
     ];
     public $timestamps = false;
     public static function find($id)

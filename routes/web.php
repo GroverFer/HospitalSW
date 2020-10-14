@@ -106,6 +106,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/tipo_permiso/desactivar', 'Tipo_permisoController@desactivar');
         Route::put('/tipo_permiso/activar', 'Tipo_permisoController@activar');
         Route::get('/tipo_permiso/selectTipo_permiso', 'Tipo_permisoController@selectTipo_permiso');
+
+        Route::get('/solicitud_permiso', 'Solicitud_permisoController@index');
+        Route::post('/solicitud_permiso/registrar', 'Solicitud_permisoController@store');
+        Route::put('/solicitud_permiso/actualizar', 'Solicitud_permisoController@update');
+        Route::put('/solicitud_permiso/desactivar', 'Solicitud_permisoController@desactivar');
+        Route::put('/solicitud_permiso/activar', 'Solicitud_permisoController@activar');
+
+        Route::get('/falla', 'FallaController@index');
+        Route::post('/falla/registrar', 'FallaController@store');
+        Route::put('/falla/actualizar', 'FallaController@update');
+        Route::put('/falla/desactivar', 'FallaController@desactivar');
+        Route::put('/falla/activar', 'FallaController@activar');
     });
 
     Route::group(['middleware' => ['Usuario']], function () {

@@ -28,6 +28,8 @@ Vue.component('jornada', require('./components/Jornada'));
 Vue.component('evento', require('./components/Evento'));
 Vue.component('evento_persona', require('./components/Evento_persona'));
 Vue.component('tipo_permiso', require('./components/Tipo_permiso'));
+Vue.component('solicitud_permiso', require('./components/Solicitud_permiso'));
+Vue.component('falla', require('./components/Falla'));
 
 
 const app = new Vue({

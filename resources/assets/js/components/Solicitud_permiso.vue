@@ -18,7 +18,11 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <select class="form-control col-md-3" v-model="criterio">
+                                <select class="form-control col-md-4" v-model="criterio">
+                                    
+                                    <option value="motivo">Motivo</option>
+                                    <option value="fecha_inicio">Fecha Inicio</option>
+                                    <option value="fecha_fin">Fecha Fin</option>
                                     <option value="id_persona">Persona</option>
                                     <option value="id_tipopermiso">Tipo de permiso</option>
                                 </select>
@@ -131,7 +135,7 @@
                                     <select v-model="id_tipopermiso" class="form-control">
                                         <option value="0" disabled>Seleccione un tipo de permiso</option>
                                         <option v-for="tipo_permiso in arrayTipo_permiso" :key="tipo_permiso.id"
-                                            :value="tipo_permiso.id" v-text="tipo_permiso.tipo"></option>
+                                            :value="tipo_permiso.id" v-text="tipo_permiso.nombre"></option>
                                     </select>
                                 </div>
                             </div>
@@ -191,7 +195,7 @@
                     'to': 0,
                 },
                 offset: 3,
-                criterio: 'id_persona',
+                criterio: 'motivo',
                 buscar: ''
             }
         },
