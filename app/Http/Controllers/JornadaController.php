@@ -98,7 +98,7 @@ class JornadaController extends Controller
                 $idpersona=$request->idpersona;
                 $date=Carbon::now();
                 $fecha=$date->toDateString();
-                $date=$date->addHour(1);
+                // $date=$date->addHour(1);
                 $hora=$date->toTimeString();
                 $fecha_hora=$date->toDateTimeString();
                 
