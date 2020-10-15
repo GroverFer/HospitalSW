@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/jornada', 'JornadaController@index');
         Route::post('/jornada/registrar', 'JornadaController@store');
         Route::put('/jornada/actualizar', 'JornadaController@update');
+        Route::get('/jornada/listarPdf2/{criterio}/{buscar}', 'JornadaController@listarPdf2')->name('jornadas_pdf2');
 
         Route::get('/evento', 'EventoController@index');
         Route::post('/evento/registrar', 'EventoController@store');

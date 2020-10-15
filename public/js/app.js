@@ -93230,6 +93230,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // props: ['ruta'],
@@ -93301,6 +93304,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf2: function cargarPdf2(buscar, criterio) {
+            window.open('http://127.0.0.1:8000/jornada/listarPdf2/' + criterio + '/' + buscar + ',_blank');
         },
         selectPersona: function selectPersona() {
             var me = this;
@@ -93465,6 +93471,23 @@ var render = function() {
             [
               _c("i", { staticClass: "icon-plus" }),
               _vm._v(" Nuevo\n                ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.cargarPdf2(_vm.buscar, _vm.criterio)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-doc" }),
+              _vm._v(" Descargar reporte en pdf\n                ")
             ]
           )
         ]),

@@ -12,6 +12,9 @@
                     <button type="button" @click="abrirModal('jornada','registrar')" class="btn btn-secondary">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
+                    <button type="button" @click="cargarPdf2(buscar,criterio)" class="btn btn-info">
+                        <i class="icon-doc"></i>&nbsp;Descargar reporte en pdf
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -251,6 +254,10 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+            },
+            cargarPdf2(buscar, criterio) {
+                window.open('http://127.0.0.1:8000/jornada/listarPdf2/' + criterio + '/' + buscar +
+                    ',_blank');
             },
             selectPersona() {
                 let me = this;
